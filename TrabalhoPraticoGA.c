@@ -7,7 +7,8 @@
 int main()
 {
 	srand(time(0));
-	int menu,taxa,ciclo,populacaoFinal,populacaoInicial;
+	int menu,taxa,ciclo,populacaoFinal;
+	int populacaoInicial = 0;
 	int cont = 1;
 	int sorteio = 0;
 
