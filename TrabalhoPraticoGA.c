@@ -28,8 +28,15 @@ int main()
 		}
 		else if (menu == 1)
 		{
-			printf("Digite a populacao inicial: ");
-			scanf("%d", &populacaoInicial);
+			while (populacaoInicial <= 0)
+			{
+				printf("Digite a populacao inicial: ");
+				scanf("%d", &populacaoInicial);
+				if(populacaoInicial < 0)
+				{
+					printf("A populacao inicial deve ser positiva. Tente novamente.\n");
+				}
+			}
 			printf("Digite a taxa de crescimento: ");
 			scanf("%d", &taxa);
 			printf("Digite a quantidade de ciclos: ");
@@ -80,8 +87,8 @@ int main()
 			}
 			printf("\n");
 			printf("Simulacao concluida. Populacao final: %d\n", populacaoFinal);
+			populacaoInicial = 0;
 		}
-		printf("\n");
 
 	} while (menu != 2);
 	
