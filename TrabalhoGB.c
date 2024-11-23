@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
-char menuPrincipal() // pq isso é char e não int?????????????????
+char menuPrincipal()
 {
     char opcao;
 
@@ -20,7 +21,7 @@ char menuPrincipal() // pq isso é char e não int?????????????????
         if (opcao < '1' || opcao > '4') {
             printf("Opção inválida. Tente novamente.\n");
         }
-    } while (opcao < '1' || opcao > '4');  
+    } while (opcao < '1' || opcao > '4');  // aqui não é && ???? (copiei o menu da sora)
 
     return opcao;
 }
@@ -70,9 +71,9 @@ void mostrarIngredientes(Ingrediente estoque[])
 }
 
 //opção 2 - Preparar poção
-int selecionarReceita(Pocao receita[])
+char selecionarReceita(Pocao receita[])
 {
-    int numPocao;
+    char numPocao;
     do
     {    
         printf("\nReceitas Disponíveis:\n");
@@ -82,60 +83,194 @@ int selecionarReceita(Pocao receita[])
         }
 
         printf("Escolha a poção que deseja preparar (1-5): ");
-        scanf("%d", &numPocao);
+        scanf(" %c", &numPocao);
 
-        if (numPocao < 1 || numPocao > 5) 
+        if (numPocao < '1' || numPocao > '5') 
         {
             printf("Opção inválida. Tente novamente.\n");
         }
-    } while (numPocao < 1 || numPocao > 5); 
+    } while (numPocao < '1' && numPocao > '5'); 
 
     return numPocao;
 }
 
-void (Ingrediente estoque[], Pocao receitas[])
+void fazerReceita(char numPocao, Ingrediente estoque[], Pocao receitas[])
 {
-
-    if (numPocao == 1) 
+    if (numPocao == '1') 
     {
+        bool comparacao = true;
         for(int i = 0; i < 4; i++)
         {
-            if(receita[0].quantidades[i] =< estoque[receita[0].ingredientes[i]].quantidade)
+            if(receitas[0].quantidades[i] > estoque[receitas[0].ingredientes[i]].quantidade)
             {
-                printf("Poção criada com sucesso!\n");
+                comparacao = false;
             }
+        }    
 
-            printf("%d. %s: %d %s\n", i+1, estoque[receita[0].ingredientes[i]], receita[0].quantidades[i], receita[0].unidades[i]);
+        if (comparacao)
+        {
+            printf("\nPoção criada com sucesso!\n");
+            printf("Estoque atualizado:\n");
+            for(int i = 0; i < 4; i++)
+            {
+                estoque[receitas[0].ingredientes[i]].quantidade = estoque[receitas[0].ingredientes[i]].quantidade - receitas[0].quantidades[i];
+                printf("%d. %s: %d %s\n", i+1, estoque[receitas[0].ingredientes[i]].nome, estoque[receitas[0].ingredientes[i]].quantidade, receitas[0].unidades[i]);
+            }
         }
-    }
-    else if (numPocao == 2) 
+        else
+        {
+            printf("Não foi possível preparar a poção. Ingredientes em falta:\n");
+            int n = 1;
+            for(int i = 0; i < 4; i++)
+            {
+                if(receitas[0].quantidades[i] > estoque[receitas[0].ingredientes[i]].quantidade)
+                {
+                    printf("%d. %s: necessário %d %s, disponível %d %s.\n", n,  estoque[receitas[0].ingredientes[i]].nome, receitas[0].quantidades[i], receitas[0].unidades[i], estoque[receitas[0].ingredientes[i]].quantidade, receitas[0].unidades[i]);
+                    n++;
+                }
+            }  
+        }
+    }        
+    else if (numPocao == '2') 
     {
+        bool comparacao = true;
         for(int i = 0; i < 3; i++)
         {
-            printf("%d. %s: %d %s\n", i+1, estoque[receita[1].ingredientes[i]], receita[1].quantidades[i], receita[1].unidades[i]);
+            if(receitas[0].quantidades[i] > estoque[receitas[0].ingredientes[i]].quantidade)
+            {
+                comparacao = false;
+            }
+        }    
+
+        if (comparacao)
+        {
+            printf("\nPoção criada com sucesso!\n");
+            printf("Estoque atualizado:\n");
+            for(int i = 0; i < 3; i++)
+            {
+                estoque[receitas[0].ingredientes[i]].quantidade = estoque[receitas[0].ingredientes[i]].quantidade - receitas[0].quantidades[i];
+                printf("%d. %s: %d %s\n", i+1, estoque[receitas[0].ingredientes[i]].nome, estoque[receitas[0].ingredientes[i]].quantidade, receitas[0].unidades[i]);
+            }
+        }
+        else
+        {
+            printf("Não foi possível preparar a poção. Ingredientes em falta:\n");
+            int n = 1;
+            for(int i = 0; i < 3; i++)
+            {
+                if(receitas[0].quantidades[i] > estoque[receitas[0].ingredientes[i]].quantidade)
+                {
+                    printf("%d. %s: necessário %d %s, disponível %d %s.\n", n,  estoque[receitas[0].ingredientes[i]].nome, receitas[0].quantidades[i], receitas[0].unidades[i], estoque[receitas[0].ingredientes[i]].quantidade, receitas[0].unidades[i]);
+                    n++;
+                }
+            }  
         }
     }
-    else if (numPocao == 3)
+    else if (numPocao == '3')
     {
+        bool comparacao = true;
         for(int i = 0; i < 2; i++)
         {
-            printf("%d. %s: %d %s\n", i+1, estoque[receita[2].ingredientes[i]], receita[2].quantidades[i], receita[2].unidades[i]);
+            if(receitas[0].quantidades[i] > estoque[receitas[0].ingredientes[i]].quantidade)
+            {
+                comparacao = false;
+            }
+        }    
+
+        if (comparacao)
+        {
+            printf("\nPoção criada com sucesso!\n");
+            printf("Estoque atualizado:\n");
+            for(int i = 0; i < 2; i++)
+            {
+                estoque[receitas[0].ingredientes[i]].quantidade = estoque[receitas[0].ingredientes[i]].quantidade - receitas[0].quantidades[i];
+                printf("%d. %s: %d %s\n", i+1, estoque[receitas[0].ingredientes[i]].nome, estoque[receitas[0].ingredientes[i]].quantidade, receitas[0].unidades[i]);
+            }
+        }
+        else
+        {
+            printf("Não foi possível preparar a poção. Ingredientes em falta:\n");
+            int n = 1;
+            for(int i = 0; i < 2; i++)
+            {
+                if(receitas[0].quantidades[i] > estoque[receitas[0].ingredientes[i]].quantidade)
+                {
+                    printf("%d. %s: necessário %d %s, disponível %d %s.\n", n,  estoque[receitas[0].ingredientes[i]].nome, receitas[0].quantidades[i], receitas[0].unidades[i], estoque[receitas[0].ingredientes[i]].quantidade, receitas[0].unidades[i]);
+                    n++;
+                }
+            }  
         }
     }
-    else if (numPocao == 4)
+    else if (numPocao == '4')
     {
+        bool comparacao = true;
         for(int i = 0; i < 3; i++)
         {
-            printf("%d. %s: %d %s\n", i+1, estoque[receita[3].ingredientes[i]], receita[3].quantidades[i], receita[3].unidades[i]);
+            if(receitas[0].quantidades[i] > estoque[receitas[0].ingredientes[i]].quantidade)
+            {
+                comparacao = false;
+            }
+        }    
+
+        if (comparacao)
+        {
+            printf("\nPoção criada com sucesso!\n");
+            printf("Estoque atualizado:\n");
+            for(int i = 0; i < 3; i++)
+            {
+                estoque[receitas[0].ingredientes[i]].quantidade = estoque[receitas[0].ingredientes[i]].quantidade - receitas[0].quantidades[i];
+                printf("%d. %s: %d %s\n", i+1, estoque[receitas[0].ingredientes[i]].nome, estoque[receitas[0].ingredientes[i]].quantidade, receitas[0].unidades[i]);
+            }
+        }
+        else
+        {
+            printf("Não foi possível preparar a poção. Ingredientes em falta:\n");
+            int n = 1;
+            for(int i = 0; i < 3; i++)
+            {
+                if(receitas[0].quantidades[i] > estoque[receitas[0].ingredientes[i]].quantidade)
+                {
+                    printf("%d. %s: necessário %d %s, disponível %d %s.\n", n,  estoque[receitas[0].ingredientes[i]].nome, receitas[0].quantidades[i], receitas[0].unidades[i], estoque[receitas[0].ingredientes[i]].quantidade, receitas[0].unidades[i]);
+                    n++;
+                }
+            }  
         }
     }
     else
     {
+        bool comparacao = true;
         for(int i = 0; i < 2; i++)
         {
-            printf("%d. %s: %d %s\n", i+1, estoque[receita[4].ingredientes[i]], receita[4].quantidades[i], receita[4].unidades[i]);
+            if(receitas[0].quantidades[i] > estoque[receitas[0].ingredientes[i]].quantidade)
+            {
+                comparacao = false;
+            }
+        }    
+
+        if (comparacao)
+        {
+            printf("\nPoção criada com sucesso!\n");
+            printf("Estoque atualizado:\n");
+            for(int i = 0; i < 2; i++)
+            {
+                estoque[receitas[0].ingredientes[i]].quantidade = estoque[receitas[0].ingredientes[i]].quantidade - receitas[0].quantidades[i];
+                printf("%d. %s: %d %s\n", i+1, estoque[receitas[0].ingredientes[i]].nome, estoque[receitas[0].ingredientes[i]].quantidade, receitas[0].unidades[i]);
+            }
         }
-    }    
+        else
+        {
+            printf("Não foi possível preparar a poção. Ingredientes em falta:\n");
+            int n = 1;
+            for(int i = 0; i < 2; i++)
+            {
+                if(receitas[0].quantidades[i] > estoque[receitas[0].ingredientes[i]].quantidade)
+                {
+                    printf("%d. %s: necessário %d %s, disponível %d %s.\n", n,  estoque[receitas[0].ingredientes[i]].nome, receitas[0].quantidades[i], receitas[0].unidades[i], estoque[receitas[0].ingredientes[i]].quantidade, receitas[0].unidades[i]);
+                    n++;
+                }
+            }  
+        }
+    }   
 
 }
 
@@ -209,8 +344,8 @@ int main()
                 mostrarIngredientes(estoque);
                 break;
             case '2':
-                int numReceita = selecionarReceita(receitas);
-                fazerReceita(numReceita);
+                char numReceita = selecionarReceita(receitas);
+                fazerReceita(numReceita, estoque, receitas);
                 break;
             case '3':
                 opcao3(); 
