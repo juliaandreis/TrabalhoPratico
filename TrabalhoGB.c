@@ -1,27 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 
-void opcao1(Ingrediente estoque[])
-{
-    printf("Consultar Ingredientes Disponíveis:\n");
-    
-}
-
-void opcao2()
-{
-    printf("Preparar Poção:\n");
-}
-
-void opcao3()
-{
-    printf("Reabastecer Ingrediente:\n");
-}
-
-void sair()
-{
-    printf("Saindo do programa.\n");
-}
-
 char menuPrincipal()
 {
     char opcao;
@@ -49,83 +28,102 @@ char menuPrincipal()
 typedef struct {
     char nome[30];
     int quantidade;
-} Ingrediente;
+    char unidade[2]; // como saber se eh gramas ou mililitros sem uma variável???? a sora n colocou no doc,
+} Ingrediente;       // mas acho que precisa ne??
 
 typedef struct {
     char nome[30];
     int ingredientes[7];
     int quantidades[7];
+    char unidade[2];
 } Pocao;
 
-Ingrediente inicializarIngredientes(char nome[], int quantidade)
+Ingrediente inicializarIngredientes(char nome[], int quantidade, char unidade[])
 {
     Ingrediente x;
     strcpy(x.nome, nome);
     x.quantidade = quantidade;
+    strcpy(x.unidade, unidade);
+    return x;
 }
 
-Pocao inicializarPocao(char nome[], int ingredientes[], int quantidades[])
+Pocao inicializarPocao(char nome[], int ingredientes[], int quantidades[], char unidade[], int tamanho)
 {
     Pocao x;
     strcpy(x.nome, nome);
-    for (int i = 0; i < 4) // FAZER DE UM JEITO QUE VÁ SÓ ATE A QUANTIDADE MAX DE INGREDIENTES!!!!!!!
-    {
-        x.ingredientes[0] = ingredientes; // MEU RACIOCINIO TAVA ERRADO EU TAVA PENSANDO QUE AQUI ERA PRA SER CHAR
-    } // MAS A SORA PEDIU INT. COMO FAZER PRA DEPOIS APARECER O NOME DE CADA INGREDIENTE??????? COMO SERIA P FAZER
-    x.ingredientes[0] = ingredientes; // UMA FUNÇAO QUE PREENCHE ARRAYS.. VAI NA ORDEM TIPO PRIMEIRO DIGITA TODOS
-    x.quantidades[] = quantidades; // DO PRIMEIRO ARRAY E DPS TODOS DO SEGUNDO ARRAY??????????
+    for (int i = 0; i < tamanho; i++) {
+        x.ingredientes[i] = ingredientes[i];
+        x.quantidades[i] = quantidades[i];
+    }
+    return x;
 }
+
+// opção 1 - Consultar ingredientes
+void mostrarIngredientes(Ingrediente estoque[])
+{
+    printf("\nIngredientes Disponíveis:\n");
+    for (int i = 0; i < 7; i++) 
+    {
+        printf("%d. %s: %d %s\n", i+1, estoque[i].nome, estoque[i].quantidade, estoque[i].unidade);
+    }
+}
+
+//opção 2
+
+//opção 3
+void opcao2()
+{
+    printf("Preparar Poção:\n");
+}
+
+void opcao3()
+{
+    printf("Reabastecer Ingrediente:\n");
+}
+
+void sair()
+{
+    printf("Saindo do programa.\n");
+}
+
 
 int main()
 {
     Ingrediente estoque[7];
     Pocao receitas[5];
 
-    estoque[0] = inicializarIngredientes("Pó de Fênix", 100);
-    estoque[1] = inicializarIngredientes("Essência Celestial", 50);
-    estoque[2] = inicializarIngredientes("Raiz de Dragão", 45);
-    estoque[3] = inicializarIngredientes("Orvalho Lunar", 30);
-    estoque[4] = inicializarIngredientes("Flores secas", 200);
-    estoque[5] = inicializarIngredientes("Elixir amargo", 20);
-    estoque[6] = inicializarIngredientes("Lágrimas de unicórnio", 15);
+    estoque[0] = inicializarIngredientes("Pó de Fênix", 100, "g");
+    estoque[1] = inicializarIngredientes("Essência Celestial", 50, "ml");
+    estoque[2] = inicializarIngredientes("Raiz de Dragão", 45, "g");
+    estoque[3] = inicializarIngredientes("Orvalho Lunar", 30, "ml");
+    estoque[4] = inicializarIngredientes("Flores secas", 200, "g");
+    estoque[5] = inicializarIngredientes("Elixir amargo", 20, "ml");
+    estoque[6] = inicializarIngredientes("Lágrimas de unicórnio", 15, "ml");
 
-// tudo a partir daqui fazer com função. nao apaguei pq ja tem nomes e quantidades.
-    strcpy(receitas[0].nome, "Lágrimas de unicórnio");
-    strcpy(receitas[0].ingredientes[0], "Pó de Fênix");
-    receitas[0].quantidades[0] = 15;
-    strcpy(receitas[0].ingredientes[0], "Essência Celestial");
-    receitas[0].quantidades[0] = 20;
-    strcpy(receitas[0].ingredientes[0], "Flores secas");
-    receitas[0].quantidades[0] = 20;
-    strcpy(receitas[0].ingredientes[0], "Lágrimas de unicórnio");
-    receitas[0].quantidades[0] = 10;
+    int ingredientes0[4] = {0, 1, 4, 6}; 
+    int quantidades0[4] = {15, 20, 20, 10};
+    char unidade0[4][2] = {estoque[0].unidade, estoque[1].unidade, estoque[2].unidade, estoque[4].unidade};
+    receitas[0] = inicializarPocao("Lágrimas de unicórnio", ingredientes0, quantidades0, unidade0, 4);
 
-    strcpy(receitas[0].nome, " Poção Força da Floresta");
-    strcpy(receitas[0].ingredientes[0], "Orvalho Lunar");
-    receitas[0].quantidades[0] = 20;
-    strcpy(receitas[0].ingredientes[0], "Raiz de Dragão");
-    receitas[0].quantidades[0] = 30;
-    strcpy(receitas[0].ingredientes[0], "Flores secas");
-    receitas[0].quantidades[0] = 30;
+    int ingredientes1[3] = {3, 2, 4}; 
+    int quantidades1[3] = {20, 30, 30};
+    char unidade1[3][2] = {estoque[3].unidade, estoque[2].unidade, estoque[4].unidade};
+    receitas[1] = inicializarPocao("Poção Força da Floresta", ingredientes1, quantidades1, unidade1, 3);
 
-    strcpy(receitas[0].nome, "Poção Sabedoria da Riqueza");
-    strcpy(receitas[0].ingredientes[0], "Essência Celestial ");
-    receitas[0].quantidades[0] = 30;
-    strcpy(receitas[0].ingredientes[0], " Pó de Fênix");
+    int ingredientes2[2] = {2, 1}; 
+    int quantidades2[2] = {30, 50};
+    char unidade2[2][2] = {estoque[2].unidade, estoque[1].unidade};
+    receitas[2] = inicializarPocao("Poção Sabedoria da Riqueza", ingredientes2, quantidades2, unidade2, 2);
 
-    strcpy(receitas[0].nome, "Poção Sorte no Amor");
-    strcpy(receitas[0].ingredientes[0], "Orvalho Lunar");
-    receitas[0].quantidades[0] = 10;
-    strcpy(receitas[0].ingredientes[0], "Flores secas");
-    receitas[0].quantidades[0] = 50;
-    strcpy(receitas[0].ingredientes[0], "Lágrimas de unicórnio");
-    receitas[0].quantidades[0] = 5;
+    int ingredientes3[3] = {3, 4, 6}; 
+    int quantidades3[3] = {10, 50, 5};
+    char unidade3[3][2] = {estoque[3].unidade, estoque[4].unidade, estoque[6].unidade};
+    receitas[3] = inicializarPocao("Poção Sorte no Amor", ingredientes3, quantidades3, unidade3, 3);
 
-    strcpy(receitas[0].nome, "Poção Malvada");
-    strcpy(receitas[0].ingredientes[0], "Elixir amargo");
-    receitas[0].quantidades[0] = 10;
-    strcpy(receitas[0].ingredientes[0], "Raiz de Dragão");
-    receitas[0].quantidades[0] = 15;
+    int ingredientes4[2] = {5, 2}; 
+    int quantidades4[2] = {10, 15};
+    char unidade4[2][2] = {estoque[5].unidade, estoque[2].unidade};
+    receitas[4] = inicializarPocao("Poção Malvada", ingredientes4, quantidades4, unidade4, 2);
 
     char escolha;
 
@@ -134,7 +132,7 @@ int main()
 
         switch (escolha) {
             case '1':
-                opcao1();
+                mostrarIngredientes(estoque);
                 break;
             case '2':
                 opcao2();
@@ -143,9 +141,6 @@ int main()
                 opcao3(); 
                 break;
             case '4':
-                opcao4(); 
-                break;
-            case '5':
                 sair(); 
                 break;
         }
