@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-char menuPrincipal()
+char menuPrincipal() // pq isso é char e não int?????????????????
 {
     char opcao;
 
@@ -35,7 +35,7 @@ typedef struct {
     char nome[30];
     int ingredientes[7];
     int quantidades[7];
-    char unidade[2];
+    char unidades[7][3];
 } Pocao;
 
 Ingrediente inicializarIngredientes(char nome[], int quantidade, char unidade[])
@@ -47,13 +47,14 @@ Ingrediente inicializarIngredientes(char nome[], int quantidade, char unidade[])
     return x;
 }
 
-Pocao inicializarPocao(char nome[], int ingredientes[], int quantidades[], char unidade[], int tamanho)
+Pocao inicializarPocao(char nome[], int ingredientes[], int quantidades[], char unidades[][3], int tamanho)
 {
     Pocao x;
     strcpy(x.nome, nome);
     for (int i = 0; i < tamanho; i++) {
         x.ingredientes[i] = ingredientes[i];
         x.quantidades[i] = quantidades[i];
+        strcpy(x.unidades[i], unidades[i]);
     }
     return x;
 }
@@ -68,7 +69,80 @@ void mostrarIngredientes(Ingrediente estoque[])
     }
 }
 
-//opção 2
+//opção 2 - Preparar poção
+int selecionarReceita(Pocao receita[])
+{
+    int numPocao;
+    do
+    {    
+        printf("\nReceitas Disponíveis:\n");
+        for (int i = 0; i < 5; i++) 
+        {
+            printf("%d. %s\n", i+1, receita[i].nome);
+        }
+
+        printf("Escolha a poção que deseja preparar (1-5): ");
+        scanf("%d", &numPocao);
+
+        if (numPocao < 1 || numPocao > 5) 
+        {
+            printf("Opção inválida. Tente novamente.\n");
+        }
+    } while (numPocao < 1 || numPocao > 5); 
+
+    return numPocao;
+}
+
+void (Ingrediente estoque[], Pocao receitas[])
+{
+
+    if (numPocao == 1) 
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            if(receita[0].quantidades[i] =< estoque[receita[0].ingredientes[i]].quantidade)
+            {
+                printf("Poção criada com sucesso!\n");
+            }
+
+            printf("%d. %s: %d %s\n", i+1, estoque[receita[0].ingredientes[i]], receita[0].quantidades[i], receita[0].unidades[i]);
+        }
+    }
+    else if (numPocao == 2) 
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            printf("%d. %s: %d %s\n", i+1, estoque[receita[1].ingredientes[i]], receita[1].quantidades[i], receita[1].unidades[i]);
+        }
+    }
+    else if (numPocao == 3)
+    {
+        for(int i = 0; i < 2; i++)
+        {
+            printf("%d. %s: %d %s\n", i+1, estoque[receita[2].ingredientes[i]], receita[2].quantidades[i], receita[2].unidades[i]);
+        }
+    }
+    else if (numPocao == 4)
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            printf("%d. %s: %d %s\n", i+1, estoque[receita[3].ingredientes[i]], receita[3].quantidades[i], receita[3].unidades[i]);
+        }
+    }
+    else
+    {
+        for(int i = 0; i < 2; i++)
+        {
+            printf("%d. %s: %d %s\n", i+1, estoque[receita[4].ingredientes[i]], receita[4].quantidades[i], receita[4].unidades[i]);
+        }
+    }    
+
+}
+
+void ingedientesReceita(int x)
+{
+
+}
 
 //opção 3
 void opcao2()
@@ -101,29 +175,29 @@ int main()
     estoque[6] = inicializarIngredientes("Lágrimas de unicórnio", 15, "ml");
 
     int ingredientes0[4] = {0, 1, 4, 6}; 
-    int quantidades0[4] = {15, 20, 20, 10};
-    char unidade0[4][2] = {estoque[0].unidade, estoque[1].unidade, estoque[2].unidade, estoque[4].unidade};
-    receitas[0] = inicializarPocao("Lágrimas de unicórnio", ingredientes0, quantidades0, unidade0, 4);
+    int quantidades0[4] = {30, 20, 20, 10};
+    char unidades0[4][3] = {"g","ml","g", "ml"};
+    receitas[0] = inicializarPocao("Poção de Cura", ingredientes0, quantidades0, unidades0, 4);
 
     int ingredientes1[3] = {3, 2, 4}; 
     int quantidades1[3] = {20, 30, 30};
-    char unidade1[3][2] = {estoque[3].unidade, estoque[2].unidade, estoque[4].unidade};
-    receitas[1] = inicializarPocao("Poção Força da Floresta", ingredientes1, quantidades1, unidade1, 3);
+    char unidades1[3][3] = {"ml", "g", "g"};
+    receitas[1] = inicializarPocao("Poção Força da Floresta", ingredientes1, quantidades1, unidades1, 3);
 
     int ingredientes2[2] = {2, 1}; 
     int quantidades2[2] = {30, 50};
-    char unidade2[2][2] = {estoque[2].unidade, estoque[1].unidade};
-    receitas[2] = inicializarPocao("Poção Sabedoria da Riqueza", ingredientes2, quantidades2, unidade2, 2);
+    char unidades2[2][3] = {"g", "ml"};
+    receitas[2] = inicializarPocao("Poção Sabedoria da Riqueza", ingredientes2, quantidades2, unidades2, 2);
 
     int ingredientes3[3] = {3, 4, 6}; 
     int quantidades3[3] = {10, 50, 5};
-    char unidade3[3][2] = {estoque[3].unidade, estoque[4].unidade, estoque[6].unidade};
-    receitas[3] = inicializarPocao("Poção Sorte no Amor", ingredientes3, quantidades3, unidade3, 3);
+    char unidades3[3][3] = {"ml", "g", "ml"};
+    receitas[3] = inicializarPocao("Poção Sorte no Amor", ingredientes3, quantidades3, unidades3, 3);
 
     int ingredientes4[2] = {5, 2}; 
     int quantidades4[2] = {10, 15};
-    char unidade4[2][2] = {estoque[5].unidade, estoque[2].unidade};
-    receitas[4] = inicializarPocao("Poção Malvada", ingredientes4, quantidades4, unidade4, 2);
+    char unidades4[2][3] = {"ml", "g"};
+    receitas[4] = inicializarPocao("Poção Malvada", ingredientes4, quantidades4, unidades4, 2);
 
     char escolha;
 
@@ -135,7 +209,8 @@ int main()
                 mostrarIngredientes(estoque);
                 break;
             case '2':
-                opcao2();
+                int numReceita = selecionarReceita(receitas);
+                fazerReceita(numReceita);
                 break;
             case '3':
                 opcao3(); 
