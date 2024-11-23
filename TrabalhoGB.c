@@ -89,6 +89,7 @@ int main()
     estoque[5] = inicializarIngredientes("Elixir amargo", 20);
     estoque[6] = inicializarIngredientes("Lágrimas de unicórnio", 15);
 
+// tudo a partir daqui fazer com função. nao apaguei pq ja tem nomes e quantidades.
     strcpy(receitas[0].nome, "Lágrimas de unicórnio");
     strcpy(receitas[0].ingredientes[0], "Pó de Fênix");
     receitas[0].quantidades[0] = 15;
