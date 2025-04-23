@@ -1,0 +1,10 @@
+#O DESPERTAR DAS TREVAS
+
+historinhaaaaa
+
+a) Caminho longo. #2
+b) Caminho curto. #3
+
+1.txt - introduçao, escolhe o caminho
+2.txt - caminho longo, encontra bruxa que da um item magico
+3.txt - cai na armadilha de um monstro e tenta fugir. as escolhas levam pra fuga ou combate.
