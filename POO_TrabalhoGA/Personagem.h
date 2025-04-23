@@ -19,6 +19,12 @@ class Personagem{
         Personagem();
         ~Personagem();
         Personagem(string nome, int vida, int ataque, int defesa, int habilidade, int energia, int sorte, bool mago);
+
+    //Métodos
+        bool testarSorte();
+
+
+    //Getters e Setters
         void setNome(string nome);
         string getNome();
         void setVida(int vida);
