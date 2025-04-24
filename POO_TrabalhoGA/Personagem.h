@@ -11,7 +11,6 @@ class Personagem{
         int habilidade; // Representa a destreza em combate, mínimo igual a 6 e máximo igual a 12
         int energia; // Representa pontos de vida, mínimo igual a 12 e máximo igual a 24
         int sorte; // Pode ser testada e também pode mudar valores do dano, mínimo igual a 6 e máximo igual a 12
-        bool mago; // Representa se o personagem é mago ou não.
         Magia** magias; // Magias que o personagem possui.
         Item** inventario; // Equipamentos que o personagem possui.
         int num_magias;
@@ -22,14 +21,9 @@ class Personagem{
     public:
         Personagem();
         ~Personagem();
-        Personagem(string nome, int habilidade, int energia, int sorte, bool mago);
+        Personagem(string nome, int habilidade, int energia, int sorte);
 
-    //Métodos
-        bool testarSorte();
-        void imprime_info();
-        void imprime_inventario();
-
-    //Getters e Setters
+        //Getters e Setters
         void setNome(string nome);
         string getNome();
         void setHabilidade(int habilidade);
@@ -38,12 +32,14 @@ class Personagem{
         int getEnergia();
         void setSorte(int sorte);
         int getSorte();
-        void setMago(bool mago);
-        bool getMago();
-        void setMagias(Magia** magias);
-        Magia** getMagias();
-        void setInventario(Item** inventario);
+        void setInventario(Item* item);
         Item** getInventario();
+
+        //Métodos
+        bool testarSorte();
+        void imprime_inventario();
+        void imprime();
+        virtual void imprime_info();
 };
 
-#endif // PERSONAGEM_CPP
+#endif // PERSONAGEM_H

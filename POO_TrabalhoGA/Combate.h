@@ -16,4 +16,4 @@ class Combate{
 
 };
 
-#endif // COMBATE_CPP
+#endif // COMBATE_H

@@ -23,4 +23,4 @@ class Magia{
         bool getItem_magico();
 };
 
-#endif // MAGIA_CPP
+#endif // MAGIA_H
