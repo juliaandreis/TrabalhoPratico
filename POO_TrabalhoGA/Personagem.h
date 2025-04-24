@@ -36,6 +36,7 @@ class Personagem{
         Item** getInventario();
 
         //Métodos
+        void escolheValorAtributos(int hab, int ene, int sor);
         bool testarSorte();
         void imprime_inventario();
         void imprime();

@@ -1,0 +1,1 @@
+Monstro::Monstro(string nome, int habilidade, int energia, int sorte, Magia** magias):Personagem(nome, habilidade, energia, sorte){

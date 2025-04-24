@@ -54,6 +54,20 @@ void Personagem::setInventario(Item* item){
 Item** Personagem::getInventario(){return inventario;}
 
 //Métodos
+
+void Personagem::escolheValorAtributos(int hab, int ene, int sor){
+    if (hab + ene + sor == 12){
+        if (habilidade + hab < 12){
+            habilidade += hab;
+        }
+        if (energia + ene < 24){
+            energia += ene;
+        }
+        if (sorte + sor < 12){
+            sorte += sor;
+        }
+    }
+}
 // sucesso se total <= sorte
 bool Personagem::testarSorte(){
     if (sorte <= 0) {

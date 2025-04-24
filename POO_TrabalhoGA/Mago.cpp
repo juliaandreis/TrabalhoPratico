@@ -10,7 +10,7 @@ Mago::Mago(){}
 
 Mago::~Mago(){}
 
-Mago::Mago(string nome, int habilidade, int energia, int sorte, Magia** magias){
+Mago::Mago(string nome, int habilidade, int energia, int sorte, Magia** magias):Personagem(nome, habilidade, energia, sorte){
     magias = new Magia *[5];
     for (int i = 0; i < 5; i++) {
         magias[i] = nullptr;

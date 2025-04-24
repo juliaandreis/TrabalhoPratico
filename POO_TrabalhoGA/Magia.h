@@ -21,6 +21,7 @@ class Magia{
         int getDano();
         void setItem_magico(bool item);
         bool getItem_magico();
+        void usarMagia();
 };
 
 #endif // MAGIA_H
