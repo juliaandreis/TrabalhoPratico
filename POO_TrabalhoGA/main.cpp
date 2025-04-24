@@ -1,8 +1,14 @@
 #include <iostream>
+#include <string>
+#include "Combate.h"
+#include "Personagem.h"
+#include "Magia.h"
+#include "Item.h"
+
 using namespace std;
 
 int main() 
 {
-    cout << "Hello, Remote World!" << "\n";
+    
     return 0;
 }
