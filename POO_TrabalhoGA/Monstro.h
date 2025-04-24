@@ -2,12 +2,12 @@
 #define MONSTRO_H
 
 #include <string>
+#include "Personagem.h"
 
 using namespace std;
 
-class Magia{
+class Monstro: public Personagem{  
     private:
-        string nome;
         
 
     public:
