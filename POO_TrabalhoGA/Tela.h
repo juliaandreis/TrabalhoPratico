@@ -1,6 +1,6 @@
 
-#ifndef TELA_CPP
-#define TELA_CPP
+#ifndef TELA_H
+#define TELA_H
 
 #include "Item.h"
 #include <iostream>
@@ -38,4 +38,4 @@ class Tela
         int proximaCenaDerrota;
 };
 
-#endif // TELA_CPP
+#endif // TELA_H
