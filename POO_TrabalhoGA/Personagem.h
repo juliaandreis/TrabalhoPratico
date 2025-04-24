@@ -2,6 +2,8 @@
 #define PERSONAGEM_H
 
 #include <string>
+#include "Magia.h"
+#include "Item.h"
 
 class Personagem{  
     private:
@@ -12,27 +14,24 @@ class Personagem{
         bool mago; // Representa se o personagem é mago ou não.
         Magia** magias; // Magias que o personagem possui.
         Item** inventario; // Equipamentos que o personagem possui.
-        Item** tesouro; // Tesouros que o personagem possui.
-        Provisao** provisoes; // Só podem ser usadas fora de combate. Uma provisão recupera 4 pontos de vida.
-
+        int num_magias;
+        int num_inventario;
+        int tesouro;
+        int provisoes;
+    
     public:
         Personagem();
         ~Personagem();
-        Personagem(string nome, int vida, int ataque, int defesa, int habilidade, int energia, int sorte, bool mago);
+        Personagem(string nome, int habilidade, int energia, int sorte, bool mago);
 
     //Métodos
         bool testarSorte();
-
+        void imprime_info();
+        void imprime_inventario();
 
     //Getters e Setters
         void setNome(string nome);
         string getNome();
-        void setVida(int vida);
-        int getVida();
-        void setAtaque(int ataque);
-        int getAtaque();
-        void setDefesa(int defesa);
-        int getDefesa();
         void setHabilidade(int habilidade);
         int getHabilidade();
         void setEnergia(int energia);
@@ -45,10 +44,6 @@ class Personagem{
         Magia** getMagias();
         void setInventario(Item** inventario);
         Item** getInventario();
-        void setTesouro(Item** tesouro);
-        Item** getTesouro();
-        void setProvisoes(Provisao** provisoes);
-        Provisao** getProvisoes();
 };
 
 #endif // PERSONAGEM_CPP
