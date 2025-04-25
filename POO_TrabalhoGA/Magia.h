@@ -10,7 +10,7 @@ class Magia{
         string nome;
         int cura;
         int dano;
-        bool item_magico; // para definir se é item mágico
+        int usoDisponivel;
 
     public:
         Magia();
