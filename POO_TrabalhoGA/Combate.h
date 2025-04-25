@@ -20,6 +20,7 @@ class Combate{
         void setMonstro(Personagem* monstro);
         Personagem* getMonstro();
         void acaoCombate();
+        void turno();
 };
 
 #endif // COMBATE_H
