@@ -22,8 +22,8 @@ Personagem::Personagem(string nome){
         inventario[i] = nullptr;
     }
     num_inventario = 0;
-    magias = new Magia *[5];
-    for (int i = 0; i < 5; i++) {
+    magias = new Magia *[2];
+    for (int i = 0; i < 2; i++) {
         magias[i] = nullptr;
     }
     num_magias = 0;
@@ -56,11 +56,10 @@ void Personagem::setInventario(Item* item){
 
 Item** Personagem::getInventario(){return inventario;}
 
-void Personagem::setMagia(Magia* magia){
-    if (num_magias < 5) {
-        magias[num_magias] = magia;
-        num_magias++;
-    }
+void Personagem::setMagia(Magia* magia1, Magia* magia2){
+    magias[0] = magia1;
+    magias[1] = magia2;
+    num_magias = 2;
 }
 
 Magia** Personagem::getMagias(){return magias;}
