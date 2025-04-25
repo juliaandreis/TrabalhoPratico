@@ -114,6 +114,17 @@ void Personagem::defesa(int n){
     }
 }
 
+int usarMagia(Magia* magia){
+    if (magia->getCura() != 0){
+        magia->setUsoDisponivel(-1);
+        return magia->getCura();
+    }
+    else if (magia->getDano() != 0){
+        magia->setUsoDisponivel(-1);
+        return magia->getDano();
+    }
+}
+
 void Personagem::escolheValorAtributos(int hab, int ene, int sor){
     if (hab + ene + sor == 12){
         if (habilidade + hab < 12){
