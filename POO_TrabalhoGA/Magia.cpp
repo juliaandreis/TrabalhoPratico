@@ -27,6 +27,6 @@ void Magia::setDano(int dano){this->dano = dano;}
 
 int Magia::getDano(){return dano;}
 
-void Magia::setItem_magico(bool item_magico){this->item_magico = item_magico;}
+void Magia::setUsoDisponivel(int usoDisponivel){this->usoDisponivel = usoDisponivel;}
 
-bool Magia::getItem_magico(){return item_magico;}
+int Magia::getUsoDisponivel(){return usoDisponivel;}
