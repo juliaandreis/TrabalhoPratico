@@ -81,8 +81,19 @@ void Personagem::setNum_inventario(int num_inventario){this->num_inventario = nu
 int Personagem::getNum_inventario(){return num_inventario;}
 
 //Métodos
-void Personagem::ataque(){
-    
+int Personagem::ataque(){
+    int ataqueTotal = 2;
+    for (int i = 0; i < num_inventario; i++){
+        if (inventario[i]->combate == 1 && inventario[i]->tipo == 'w'){ // verifica se o item pode ser usado em combate e se é arma
+            if (inventario[i]->FA != 0){ // verifica se o item tem bonus de forca de ataque
+                ataqueTotal += inventario[i]->FA; 
+            }
+            if (inventario[i]->dano != 0){ // verifica se o item tem bonus de dano
+                ataqueTotal += inventario[i]->dano;
+            }
+        }
+    }
+    return ataqueTotal;
 }
 
 void Personagem::cura(int n){
@@ -91,8 +102,15 @@ void Personagem::cura(int n){
     }
 }
 
-void Personagem::defesa(){
-    
+void Personagem::defesa(int n){
+    for (int i = 0; i < num_inventario; i++){
+        if (inventario[i]->combate == 1 && inventario[i]->tipo == 'r'){// verifica se o item pode ser usado em combate e se é armadura
+            energia = -n + inventario[i]->FA;
+        }
+        else {
+            energia -= n;
+        }
+    }
 }
 
 void Personagem::escolheValorAtributos(int hab, int ene, int sor){
