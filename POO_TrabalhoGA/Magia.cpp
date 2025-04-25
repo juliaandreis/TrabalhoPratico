@@ -8,11 +8,11 @@ Magia::Magia(){}
 
 Magia::~Magia(){}
 
-Magia::Magia(string nome, int cura, int dano, bool item_magico){
+Magia::Magia(string nome, int cura, int dano, int usoDisponivel){
     this->nome = nome;
     this->cura = cura;
     this->dano = dano;
-    this->item_magico = item_magico;
+    this->usoDisponivel = usoDisponivel;
 }
 
 void Magia::setNome(string nome){this->nome = nome;}
