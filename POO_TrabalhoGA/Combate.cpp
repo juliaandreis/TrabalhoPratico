@@ -41,10 +41,12 @@ void Combate::acaoCombate() {
     if (fa_personagem > fa_monstro) {
         cout << personagem->getNome() << " venceu" << endl;
         monstro->setEnergia(monstro->getEnergia() - 2);
-    } else if (fa_monstro > fa_personagem) {
+    } 
+    else if (fa_monstro > fa_personagem) {
         cout << monstro->getNome() << " venceu" << endl;
         personagem->setEnergia(personagem->getEnergia() - 2);
-    } else {
-        cout << "Empate" << endl;;
+    } 
+    else {
+        cout << "Empate" << endl;
     }
 }
