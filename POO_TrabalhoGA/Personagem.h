@@ -49,6 +49,7 @@ class Personagem{
         int ataque();
         void cura(int n);
         void defesa(int n);
+        int usarMagia(Magia* magia);
         void escolheValorAtributos(int hab, int ene, int sor);
         bool testarSorte();
         void imprime_magias();
