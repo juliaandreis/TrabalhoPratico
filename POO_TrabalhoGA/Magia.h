@@ -22,8 +22,8 @@ class Magia{
         int getCura();
         void setDano(int dano);
         int getDano();
-        void setItem_magico(bool item);
-        bool getItem_magico();
+        void setUsoDisponivel(int usoDisponivel);
+        int getUsoDisponivel();
 };
 
 #endif // MAGIA_H
