@@ -46,9 +46,9 @@ class Personagem{
         Item** getInventario();
 
         //Métodos
-        void ataque(); // ----------falta implementar
+        int ataque();
         void cura(int n);
-        void defesa();// ----------falta implementar
+        void defesa(int n);
         void escolheValorAtributos(int hab, int ene, int sor);
         bool testarSorte();
         void imprime_magias();
