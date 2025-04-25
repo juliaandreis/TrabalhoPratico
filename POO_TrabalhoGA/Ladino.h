@@ -7,11 +7,10 @@
 using namespace std;
 
 class Ladino: public Personagem{  
-    private:
-
-
     public:
-
+        Ladino();
+        ~Ladino();
+        Ladino(string nome);
 };
 
 #endif // LADINO_H

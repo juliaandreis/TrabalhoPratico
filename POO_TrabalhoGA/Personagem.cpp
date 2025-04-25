@@ -12,18 +12,20 @@ Personagem::Personagem(){}
 
 Personagem::~Personagem(){}
 
-Personagem::Personagem(string nome, int habilidade, int energia, int sorte){
+Personagem::Personagem(string nome){
     this->nome = nome;
-    this->habilidade = habilidade;
-    this->energia = energia;
-    this->sorte = sorte;
     tesouro = 20;
     provisoes = 5;
-    inventario = new Item *[10];
-    for (int i = 0; i < 10; i++) {
+    inventario = new Item *[5];
+    for (int i = 0; i < 5; i++) {
         inventario[i] = nullptr;
     }
     num_inventario = 0;
+    magias = new Magia *[5];
+    for (int i = 0; i < 5; i++) {
+        magias[i] = nullptr;
+    }
+    num_magias = 0;
 }
 
 //Getters e Setters
@@ -53,7 +55,45 @@ void Personagem::setInventario(Item* item){
 
 Item** Personagem::getInventario(){return inventario;}
 
+void Personagem::setMagia(Magia* magia){
+    if (num_magias < 5) {
+        magias[num_magias] = magia;
+        num_magias++;
+    }
+}
+
+Magia** Personagem::getMagias(){return magias;}
+
+void Personagem::setNum_magias(int num_magias){this->num_magias = num_magias;}
+
+int Personagem::getNum_magias(){return num_magias;}
+
+void Personagem::setTesouro(int tesouro){this->tesouro = tesouro;}
+
+int Personagem::getTesouro(){return tesouro;}
+
+void Personagem::setProvisoes(int provisoes){this->provisoes = provisoes;}
+
+int Personagem::getProvisoes(){return provisoes;}
+
+void Personagem::setNum_inventario(int num_inventario){this->num_inventario = num_inventario;}
+
+int Personagem::getNum_inventario(){return num_inventario;}
+
 //Métodos
+void Personagem::ataque(){
+    
+}
+
+void Personagem::cura(int n){
+    if (energia + n < 24){
+        energia += n;
+    }
+}
+
+void Personagem::defesa(){
+    
+}
 
 void Personagem::escolheValorAtributos(int hab, int ene, int sor){
     if (hab + ene + sor == 12){
@@ -94,29 +134,42 @@ bool Personagem::testarSorte(){
     return sucesso;
 }
 
-void Personagem::imprime_inventario(){
-    cout << "INVENTARIO:" << endl;
-    for (int i = 0; i < 10; i++){
-        if (inventario[i] != nullptr){
-            cout << "Nome do item: " << inventario[i]->nome << endl;
-            cout << "Tipo: " << inventario[i]->tipo << endl;
-            cout << "Combate (1 - sim, 2 - não): " << inventario[i]->combate << endl;
-            cout << "Bônus de Força de Ataque: " << inventario[i]->FA << endl;
-            cout << "Bônus de Dano: " << inventario[i]->dano << endl << endl;
+// nome;cura;dano
+void Personagem::imprime_magias(){
+    if (magias != nullptr && num_magias > 0){
+        cout << "M: ";
+        for (int i = 0; i < num_magias; i++){
+            if (magias[i] != nullptr){
+                cout << magias[i]->getNome() <<  ", " << magias[i]->getCura()  <<  ", " << magias[i]->getDano() << ". ";
+            }
         }
-    }
+    } 
+    cout << endl;
 }
 
-void Personagem::imprime(){
-    cout << "Nome: " << nome << endl;
-    cout << "Habilidade: " << habilidade << endl;
-    cout << "Energia: " << energia << endl;
-    cout << "Sorte: " << sorte << endl;
+//nome;tipo;combate;FA;dano
+void Personagem::imprime_inventario(){
+    for (int i = 0; i < num_inventario; i++)
+        if (inventario[i] != nullptr){
+            cout << "I: " << inventario[i]->nome << ", " << inventario[i]->tipo << ", " << inventario[i]->combate << ", " << inventario[i]->FA << ", " << inventario[i]->dano << endl;
+        }
+}
+
+void Personagem::imprime_info(){
+    cout << "N: " << nome << endl;
+    if (num_magias != 0){
+        imprime_magias();
+    }
+    cout << "H: " << habilidade << endl;
+    cout << "S: " << sorte << endl;
+    cout << "E: " << energia << endl;
     if (tesouro != 0){
-        cout << "Tesouro: " << tesouro << endl;
+        cout << "T: " << tesouro << endl;
     }
     if (provisoes != 0){
-        cout << "Provisões: " << provisoes << endl;
+        cout << "P: " << provisoes << endl;
     }
-    imprime_inventario();
+    if (num_inventario != 0){
+        imprime_inventario();
+    }
 }

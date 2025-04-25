@@ -21,7 +21,7 @@ class Personagem{
     public:
         Personagem();
         ~Personagem();
-        Personagem(string nome, int habilidade, int energia, int sorte);
+        Personagem(string nome);
 
         //Getters e Setters
         void setNome(string nome);
@@ -32,15 +32,28 @@ class Personagem{
         int getEnergia();
         void setSorte(int sorte);
         int getSorte();
+        void setMagia(Magia* magia);
+        Magia** getMagias();
+        void setNum_magias(int num_magias);
+        int getNum_magias();
+        void setTesouro(int tesouro);
+        int getTesouro();
+        void setProvisoes(int provisoes);
+        int getProvisoes();
+        void setNum_inventario(int num_inventario);
+        int getNum_inventario();
         void setInventario(Item* item);
         Item** getInventario();
 
         //Métodos
+        void ataque(); // ----------falta implementar
+        void cura(int n);
+        void defesa();// ----------falta implementar
         void escolheValorAtributos(int hab, int ene, int sor);
         bool testarSorte();
+        void imprime_magias();
         void imprime_inventario();
-        void imprime();
-        virtual void imprime_info();
+        void imprime_info();
 };
 
 #endif // PERSONAGEM_H

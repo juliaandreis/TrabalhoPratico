@@ -7,11 +7,10 @@
 using namespace std;
 
 class Guerreiro: public Personagem{  
-    private:
-        
-
     public:
-
+        Guerreiro();
+        ~Guerreiro();
+        Guerreiro(string nome);
 };
 
 #endif // GUERREIRO_H

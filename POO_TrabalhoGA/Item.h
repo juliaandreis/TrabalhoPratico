@@ -10,8 +10,7 @@ typedef struct {
     char tipo; // C - Item comum | R - Armadura | W - Arma
     bool combate; // 1 para combate, 0 para não-combate
     int FA; // Bônus de Força de Ataque
-    int dano; // Bônus de Dano
-    bool item_magico; //---------------------------------- TIRAR?
+    int dano; // Dano
 } Item;
 
 #endif // ITEM_H

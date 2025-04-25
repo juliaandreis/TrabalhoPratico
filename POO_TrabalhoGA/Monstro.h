@@ -7,11 +7,10 @@
 using namespace std;
 
 class Monstro: public Personagem{  
-    private:
-        
-
     public:
-        
+        Monstro();
+        ~Monstro();
+        Monstro(string nome);
 };
 
 #endif // MONSTRO_H

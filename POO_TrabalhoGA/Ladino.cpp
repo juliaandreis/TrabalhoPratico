@@ -6,4 +6,12 @@
 
 using namespace std;
 
-Ladino::Ladino(string nome, int habilidade, int energia, int sorte, Magia** magias):Personagem(nome, habilidade, energia, sorte){}
+Ladino::Ladino(){}
+
+Ladino::~Ladino(){}
+
+Ladino::Ladino(string nome):Personagem(nome){
+    setHabilidade(9);
+    setEnergia(12);
+    setSorte(6);
+}
