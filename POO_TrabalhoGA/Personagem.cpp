@@ -123,6 +123,9 @@ int usarMagia(Magia* magia){
         magia->setUsoDisponivel(-1);
         return magia->getDano();
     }
+    else {
+        return 0;
+    }
 }
 
 void Personagem::escolheValorAtributos(int hab, int ene, int sor){
