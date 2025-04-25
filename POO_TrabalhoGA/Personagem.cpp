@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdlib> // rand() e srand()
 #include <ctime>   // time()
+#include <cctype> // tolower()
 #include "Personagem.h"
 #include "Magia.h"
 #include "Item.h"
@@ -84,7 +85,7 @@ int Personagem::getNum_inventario(){return num_inventario;}
 int Personagem::ataque(){
     int ataqueTotal = 2;
     for (int i = 0; i < num_inventario; i++){
-        if (inventario[i]->combate == 1 && inventario[i]->tipo == 'w'){ // verifica se o item pode ser usado em combate e se é arma
+        if (inventario[i]->combate == 1 && tolower(inventario[i]->tipo) == 'w'){ // verifica se o item pode ser usado em combate e se é arma
             if (inventario[i]->FA != 0){ // verifica se o item tem bonus de forca de ataque
                 ataqueTotal += inventario[i]->FA; 
             }
@@ -104,7 +105,7 @@ void Personagem::cura(int n){
 
 void Personagem::defesa(int n){
     for (int i = 0; i < num_inventario; i++){
-        if (inventario[i]->combate == 1 && inventario[i]->tipo == 'r'){// verifica se o item pode ser usado em combate e se é armadura
+        if (inventario[i]->combate == 1 && tolower(inventario[i]->tipo) == 'r'){// verifica se o item pode ser usado em combate e se é armadura
             energia = -n + inventario[i]->FA;
         }
         else {
