@@ -1,10 +1,7 @@
-O DESPERTAR DAS TREVAS
+A Vila de Greyhawk é um lugar sombrio, com casas de madeira enegrecida e moradores que sussurram. 
+No centro, uma taverna chamada "Confraria do Corvo" emite luz e risadas abafadas. 
+Um velho de capuz, sentado no beiral da estrada, observa você fixamente.
 
-historinhaaaaa
-
-a) Caminho longo. #2
-b) Caminho curto. #3
-
-1.txt - introduçao, escolhe o caminho
-2.txt - caminho longo, encontra bruxa que da um item magico
-3.txt - cai na armadilha de um monstro e tenta fugir. as escolhas levam pra fuga ou combate.
+#1: Entrar na taverna.
+#2: Falar com o velho.
+#3: Ir direto para a Floresta Cinzenta.

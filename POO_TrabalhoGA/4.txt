@@ -1,0 +1,7 @@
+A Floresta Cinzanta vive sob um céu eternamente nublado. 
+Árvores retorcidas formam corredores naturais, e vultos se movem entre os galhos. 
+À frente, uma clareira revela um altar de pedra com marcas de sangue fresco. 
+Há pegadas recentes levando para o leste.
+
+#1: Verificar o Medalhao.
+#2: Seguir as pegadas.

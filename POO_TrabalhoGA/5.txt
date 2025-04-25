@@ -1,0 +1,3 @@
+(Encontro com um Cultista Ferido, que pode ser interrogado)
+
+carinha fala que palavras tem que ser ditas para entrar na gruta caso o jogador tenha skippado o mago
