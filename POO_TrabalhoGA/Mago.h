@@ -10,7 +10,7 @@ class Mago: public Personagem{
     public:
         Mago();
         ~Mago();
-        Mago(string nome, Magia** magias);
+        Mago(string nome, Magia* magia1, Magia* magia2);
 };
 
 #endif // MAGO_H
