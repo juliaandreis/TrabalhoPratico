@@ -30,7 +30,6 @@ void Combate::setMonstro(Personagem* monstro){this->monstro = monstro;}
 
 Personagem* Combate::getMonstro(){return monstro;}
 
-//-------- falta implementar o bonus de itens que dao bonus de ataque
 void Combate::acaoCombate() {
     srand(time(0));
     int fa_personagem = (rand() % 10 + 1) + personagem->getHabilidade();
