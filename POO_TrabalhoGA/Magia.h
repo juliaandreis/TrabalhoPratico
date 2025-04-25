@@ -15,7 +15,7 @@ class Magia{
     public:
         Magia();
         ~Magia();
-        Magia(string nome, int cura, int dano, bool item_magico);
+        Magia(string nome, int cura, int dano, int usoDisponivel);
         void setNome(string nome);
         string getNome();
         void setCura(int cura);
