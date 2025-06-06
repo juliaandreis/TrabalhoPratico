@@ -4,6 +4,13 @@
 
 using namespace std;
 
+//nos exercicios usei enum pq fica mais visual, mas podemos mudar
+enum Prioridade {
+    BAIXA = 0,
+    MEDIA = 1,
+    ALTA = 2
+};
+
 template<class T>
 class Nodo {
 private:
@@ -70,5 +77,4 @@ Nodo<T>* Nodo<T>::getAnt(){return ant;}
 template<class T>
 void Nodo<T>::imprime(){
   cout << elemento << endl;
-
 }
