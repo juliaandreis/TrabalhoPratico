@@ -19,8 +19,8 @@ ComputingProcess::~ComputingProcess(){}
   
 ComputingProcess::ComputingProcess(string processo){
   operando1 = stoi(processo.substr(0,1));
-  operando2 = processo.substr(1,2);
-  operacao = stoi(processo.substr(0,1));
+  operando2 = processo[1];
+  operacao = stoi(processo.substr(2,1));
 }
 
 void ComputingProcess::executar(){
