@@ -1,25 +1,9 @@
-O Tomo se fecha em suas mãos, e uma luz branca irrompe
-de suas páginas, banhando a biblioteca em um brilho
-de auroras cósmicas.  
+A biblioteca é um vácuo estelar, com livros flutuando como asteroides. No centro, o Tomo dos Opoentes paira sobre um pedestal, pulsando com energia cósmica. De repente, um vulto se materializa — um Devorador de Mentes, uma criatura aboninável, somente para me atormentar.
 
-Um homem surge das sombras como um fantasma prateado,
-seus olhos refletindo constelações desconhecidas...
-"Mordenkainen-", digo, inacreditado.
+1: Combater o Devorador.  
+2: Roubar o Tomo rapidamente.  
+3: Ler uma página aleatória.
 
-"Você resistiu ao canto das trevas, guardião", ele sussurra,
-enquanto um anel de estrelas fundidas aparece em seu dedo. 
-Althar ri, e pela primeira vez, você vê
-o peso da eternidade em seu sorriso.  
-
-O chão se dissolve em névoa de éter,
-e você é transportado para um observatório sob o céu noturno.  
-"O equilíbrio dos planos é frágil como teia de aranha banhada em orvalho",
-diz Mordenkainen, apontando para uma estrela cadente que corta o céu.  
-"Mas hoje, ela brilha um pouco mais forte."
-
-FIM:  
-"Agora, quando olhar para o céu,
-saiba que os planos sussurram seu nome...
-e que você os ouvirá de volta."
-
-"Stellarium" — aquele que guia entre as estrelas.
+@1;14
+@2;15
+@3;16

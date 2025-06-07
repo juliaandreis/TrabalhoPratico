@@ -1,3 +1,16 @@
-(Encontro com um Cultista Ferido, que pode ser interrogado)
+Acho que vou em direção à floresta mesmo, ver se encontro algo que remotamente pareça estranho...
 
-carinha fala que palavras tem que ser ditas para entrar na gruta caso o jogador tenha skippado o mago
+Bom, melhor do que ser assaltado ou abordado por um maluco. Assim pelo menos eu posso planejar o que faço, talvez registrar os lugares que já passei em um mapa... Seria interessante, amanhã posso buscar isso em casa e começar.
+
+A entrada da floresta é bem tranquila com várias trilhas bem marcadas, mas se quero encontrar algo que ninguém encontrou, preciso sair das trilhas e me enfiar para dentro da mata.
+
+A Floresta Cinzenta vive sob um céu eternamente nublado.
+Árvores retorcidas formam corredores naturais, e vultos se movem entre os galhos. 
+
+Encontro uma clareira e um altar de pedra... com marcas de sangue fresco. 
+Há pegadas recentes levando para o leste. Alguém está ferido vagando pela floresta?
+
+1: Seguir as pegadas.
+2: Investigar o altar.
+@1;6
+@2;7

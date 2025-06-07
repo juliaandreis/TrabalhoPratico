@@ -1,9 +1,20 @@
-Ao tocar o símbolo, instantaneamente me sinto
-ficar tonto e enjoado, como se um veneno tivesse
-se espalhado por todo meu corpo com um simples toque.
+Pego o Medalhao que o mago me deu.
 
-"Uma maldição, claro que tinha que ser uma maldição..."
+Ele possui um símbolo estranho, com um triangulo
+e algo hexagonal no centro. Me lembra uma ampulheta estranha.
 
-Pensei em voz alta, enquanto tentava recuperar as forças.
+          |\      /
+          | \____/ 
+          |  \  /\ 
+          |   \/  \
+          |   /\  /
+          |  /__\/ 
+          | /    \ 
+          |/      \
 
-# - 2 de Energia permanente.
+Quando me dou conta, o medalhao comeca a brilhar levemente
+em um tom roxo. Então, vejo uma luz brilhando muito forte
+atras da cachoeira. Um brilho também roxo...
+
+Digite 1 para continuar...
+#9

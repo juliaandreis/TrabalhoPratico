@@ -1,0 +1,13 @@
+13
+Mago
+6
+12
+6
+100
+5
+M
+Bola De Fogo;0;3;4
+M
+Cura;5;0;2
+M
+Choque Do Trovão;0;4;1

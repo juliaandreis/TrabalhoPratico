@@ -1,22 +1,22 @@
+
+#include "Mago.h"
+#include "Magia.h"
+#include "Personagem.h"
 #include <iostream>
 #include <string>
-#include "Personagem.h"
-#include "Magia.h"
-#include "Mago.h"
 
 using namespace std;
 
-Mago::Mago(){}
+Mago::Mago() {}
 
-Mago::~Mago(){}
+Mago::~Mago() {}
 
-Mago::Mago(string nome, Magia** magias):Personagem(nome){
-    magias = new Magia *[5];
-    for (int i = 0; i < 5; i++) {
-        magias[i] = nullptr;
-    }
-    setHabilidade(6);
-    setEnergia(12);
-    setSorte(6);
-    setNum_magias(0);
+Mago::Mago(string nome, Magia *magia1, Magia *magia2, Magia *magia3) : Personagem(nome) {
+  setHabilidade(6);
+  setVida(12);
+  setSorte(6);
+  setDano(1);
+  setMagia(magia1);
+  setMagia(magia2);
+  setMagia(magia3);
 }

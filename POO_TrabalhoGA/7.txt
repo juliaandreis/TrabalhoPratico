@@ -1,15 +1,6 @@
-A cascata se abre como um véu, revelando um portal de pedra rúnica.
-Nele, três símbolos brilham:
+Analise do altar.
 
-1) Um olho, #if(bool tela 3)(como no broche de Althar)
-2) Uma espiral,  
-3) Uma mão segurando um livro.
+nada demais
 
-O Medalhão em meu bolso esquenta minha roupa repentinamente,
-quase como se clamasse por "casa". Pego ele na minha mão, mas
-esta frio ao toque.
-
-#1: Tocar o olho com o Medalhão.
-#2: Tocar a espiral com o Medalhão.
-#3: Tocar a mão e livro com o Medalhão.
-#if Mago : #4: Forçar a entrada com magia.  
+Digite 1 para continuar...
+#6

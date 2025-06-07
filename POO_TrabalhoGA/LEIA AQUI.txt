@@ -1,0 +1,13 @@
+Plano de Leitura de Arquivos:
+
+# - Indica a pagina seguinte, quando há apenas uma opcão
+
+@ - Indica a página a ser seguida:
+  - Em caso de múltiplas opções, considera o valor digitado pelo usuário e pega a página após aquele determinado @
+  - Em caso de combate deve ser escrito com dois @ (@@): o 1º @@ indica falha, o 2º @@ indica fuga, o 3º @@ indica sucesso
+
+%
+(percentual) - Indica um evento, como Item ou Combate:
+  - O primeiro fator deve ser o tipo de evento, como 'I' (item), 'M' (monstro), 'F' (fim de jogo)
+  - Todos os dados depois da indicação do tipo de evento devem indicar os dados na mesma ordem estrutural da declaração
+%

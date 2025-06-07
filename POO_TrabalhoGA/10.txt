@@ -1,13 +1,10 @@
-O portal se abre, revelando um corredor iluminado por luzes flutuantes.
+Ao tocar o símbolo, instantaneamente me sinto
+ficar tonto e enjoado, como se um veneno tivesse
+se espalhado por todo meu corpo com um simples toque.
 
-Ao fim do corredor há outra porta.
+"Uma maldição, claro que tinha que ser uma maldição..."
 
-Ando relutantemente, aguardando acionar alguma armadilha ou maldição.
+Pensei em voz alta, enquanto tentava recuperar as forças.
 
-ENTÃO
-
-Eu chego em frente a porta. Sem nenhum problema no caminho. Estranho.
-Essa porta é mais detalhada, quase entalhada com desenhos de histórias
-ancestrais. Desenhos de um deus do mar adormecido, de um dragão que 
-uma vez devorara todo o universo, de um mago que descobriu todos os
-segredos do universo,...
+Digite 1 para continuar...
+#9

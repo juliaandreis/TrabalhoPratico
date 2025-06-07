@@ -1,15 +1,20 @@
 Ele usa um broche prateado com o símbolo de Mordenkainen — um olho
 dentro de um polígono.
 
-"Eu sou Althar, vigia da Gruta Arcanica. 
-Os Caçadores já estão aqui... Eu sei quem você é, #Z.
+"Eu sou Althar, vigia da Gruta de... Bom, não importa.
+Os Caçadores já estão aqui... Eu sei quem você é, e o que você procura.
 Sei que você é o único que pode resistir a tentação quando ela vier."
 
 "Tentação? Do que esta falan-"
 
 "Não há tempo! Tome, leve isto consigo!"
 
-I: Medalhao de Mordenkainen;c;0;0;0
+%I
+Medalhao de Mordenkainen
+c
+0
+0
+0
 
 "Quando você chegar onde deve chegar, a porta se abrira!
 Agora, va para a floresta e siga-os!"
@@ -18,3 +23,6 @@ E eu sou teleportado, sem mais nem menos, para o meio da floresta.
 Nenhuma vista do mago louco.
 Que ideia de girico é essa de mandar as pessoas por aí em missões
 sem antes dar um roteiro calmo e decente??
+
+Digite 1 para continuar...
+#4

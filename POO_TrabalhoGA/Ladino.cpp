@@ -1,17 +1,18 @@
+#include "Ladino.h"
+#include "Magia.h"
+#include "Personagem.h"
 #include <iostream>
 #include <string>
-#include "Personagem.h"
-#include "Magia.h"
-#include "Ladino.h"
 
 using namespace std;
 
-Ladino::Ladino(){}
+Ladino::Ladino() {}
 
-Ladino::~Ladino(){}
+Ladino::~Ladino() {}
 
-Ladino::Ladino(string nome):Personagem(nome){
-    setHabilidade(9);
-    setEnergia(12);
-    setSorte(6);
+Ladino::Ladino(string nome) : Personagem(nome) {
+  setHabilidade(9);
+  setVida(12);
+  setSorte(6);
+  setDano(1);
 }

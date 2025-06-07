@@ -1,7 +1,14 @@
-A Vila de Greyhawk é um lugar sombrio, com casas de madeira enegrecida e moradores que sussurram. 
-No centro, uma taverna chamada "Confraria do Corvo" emite luz e risadas abafadas. 
-Um velho de capuz, sentado no beiral da estrada, observa você fixamente.
+A Vila de Greyhawk é um lugar meio sombrio sombrio, com casas de madeira escura, quase preta, e o silêncio se fez presente em boa parte da cidade, como se o som não se propagasse da mesma forma. Mas dizem que já foi pior que isso.
 
-#1: Entrar na taverna.
-#2: Falar com o velho.
-#3: Ir direto para a Floresta Cinzenta.
+No centro, uma taverna chamada "Confraria do Corvo" emite luz e risadas em seu interior. É o lugar mais tranquilo desta cidade, então geralmente fica bem lotado, seja café da manhã, almoço, janta ou madrugada. Apesar de corvos geralmente não serem muito associados a coisas positivas, parece que um grupo de 7 grandes aventureiros que usavam desse nome criaram o lugar com proteções mágicas, e ajudaram esta cidade nas mais diversas áreas, com um pensamento de comunidade e união entre todos. Isso transformou as coisas por aqui.
+
+No entanto, desta vez estou indo para lá em busca de informações. Sou aventureiro, e vi descrições na biblioteca sobre um livro mágico de puro conhecimento de um dos Grandes Magos que teria se perdido por esta região, na floresta. Ainda não sei o que farei com ele, decidirei outro dia. Gostaria de confirmar se é verdade, e a taverna sempre sabe de algo.
+
+Chegando na taverna, um velho estranho de capuz, escorado ao lado da porta, me encara. Chego até a olhar para trás ou para minhas coisas para ver se há algo chamativo em algum lugar, mas não há demais. Parece que ele olha diretamente para o meu rosto. Nunca o vi na cidade.
+
+1: Entrar na taverna.
+2: Questionar o velho.
+3: Dar meia volta.
+@1;2
+@2;3
+@3;5

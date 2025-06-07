@@ -1,80 +1,130 @@
-#include <iostream>
-#include <string>
 #include "Combate.h"
-#include "Personagem.h"
-#include "Magia.h"
+#include "Guerreiro.h"
+#include "Inventario.h"
 #include "Item.h"
+#include "Ladino.h"
+#include "Magia.h"
 #include "Mago.h"
 #include "Monstro.h"
-#include "Guerreiro.h"
-#include "Ladino.h"
+#include "Personagem.h"
 #include <cstdlib> // rand() e srand()
 #include <ctime>   // time()
+#include <iostream>
+#include <string>
 
 using namespace std;
 
-Combate::Combate(){}
+Combate::Combate() {}
 
-Combate::~Combate(){}
+Combate::~Combate() {}
 
-Combate::Combate(Personagem* personagem, Personagem* monstro){
-    this->personagem = personagem;
-    this->monstro = monstro;
+Combate::Combate(Personagem *personagem, Monstro *monstro) {
+  this->personagem = personagem;
+  this->monstro = monstro;
+  turno = 0;
 }
 
-void Combate::setPersonagem(Personagem* personagem){this->personagem = personagem;}
+// Getters e Setters
+void Combate::setPersonagem(Personagem *personagem) {
+  this->personagem = personagem;
+}
 
-Personagem* Combate::getPersonagem(){return personagem;}
+Personagem *Combate::getPersonagem() { return personagem; }
 
-void Combate::setMonstro(Personagem* monstro){this->monstro = monstro;}
+void Combate::setMonstro(Monstro *monstro) { this->monstro = monstro; }
 
-Personagem* Combate::getMonstro(){return monstro;}
+Monstro *Combate::getMonstro() { return monstro; }
 
-void Combate::acaoCombate(){
-    int fa_personagem;
-    int fa_monstro;
+void Combate::setTurno(int turno){this->turno = turno;}
+
+int Combate::getTurno(){return turno;}
+
+// Métodos
+void Combate::turnos() {
+  int fa_personagem;
+  int fa_monstro;
+
+  // Define a forca de ataque de cada um
+  fa_personagem = (rand() % 10 + 1) + personagem->getHabilidade();
+  fa_monstro = (rand() % 10 + 1) + monstro->getHabilidade();
+
+  if (turno == 0 && fa_personagem >= fa_monstro) { // turno do personagem e ele pode atacar
+    int dano = 2 - (monstro->getProtecao());
+    if(personagem->getDano() > 0){dano += personagem->getDano();}
+    monstro->setVida(monstro->getVida() - dano);
+  } 
+  else if (turno == 0 && fa_personagem < fa_monstro) { // turno do personagem e ele nao pode atacar
+    cout << "Jogador errou o ataque" << endl;
+  }  
+  else if (turno == 1 && fa_personagem <= fa_monstro) { // turno do monstro e ele pode atacar
+    int dano = 2 - (personagem->getProtecao());
+    if(personagem->getDano() < 0){dano += personagem->getDano();}
+    personagem->setVida(personagem->getVida() - dano);
+  } 
+  else if (turno == 1 && fa_personagem > fa_monstro) { // turno do monstro e ele nao pode atacar
+    cout << "Monstro errou o ataque" << endl;
+  }
+}
+
+void Combate::trocaTurno(){
+  if (turno == 0)
+    turno = 1;
+  else
+    turno = 0;
+}
+
+void Combate::acaoCombate() {
+  turno = 0; // 0 - turno do personagem, 1 - turno do monstro
+
+  //personagem->imprime_info();
+  //cout << endl;
+  /*cout << " Monstro:" << endl;
+  cout << monstro->getNome() << endl;
+  cout << monstro->getProveItem() << endl;
+  cout << monstro->getDano() << endl;
+  cout << monstro->getVida() << endl;
+  cout << monstro->getHabilidade() << endl;
+  cout << monstro->getSorte() << endl;
+  cout << monstro->getTesouro() << endl;
+  cout << monstro->getProvisoes() << endl;
+  cout << monstro->getPaginaVitoria() << endl;
+  cout << monstro->getPaginaDerrota() << endl;*/
+  //monstro->imprime_info();
+  //cout << endl;
+  
+  cout << " Vida jogador (J): " << personagem->getVida() << endl;
+  for (int i = 0; i < personagem->getVida(); ++i) {
+    cout << "⫾";
+  }
+  cout << endl;
+  cout << " Vida monstro (M): " << monstro->getVida() << endl;
+  for (int i = 0; i < monstro->getVida(); ++i) {
+    cout << "⫾";
+  }
+  cout << endl;
+  do {
+    cout << endl;
+    getchar();
+    turnos();
+    cout << " Jogador: ";
+    for (int i = 0; i < personagem->getVida(); ++i) {
+      cout << "⫾";
+    }
+    cout << endl;
+    cout << " Monstro: ";
+    for (int i = 0; i < monstro->getVida(); ++i) {
+      cout << "⫾";
+    }
+    if (personagem->getVida() > 0 && monstro->getVida() > 0){
+      cout << endl << " Enter para continuar" << endl;
+    }
     
-    fa_personagem = (rand() % 10 + 1) + personagem->getHabilidade();
-    fa_monstro = (rand() % 10 + 1) + monstro->getHabilidade();
+    trocaTurno();
+  } while (personagem->getVida() > 0 && monstro->getVida() > 0);
 
-    Item** items = personagem->getInventario();
-    for (int i = 0; i < personagem->getNum_inventario(); i++){
-        if (items[i] != nullptr && items[i]->combate == 1 && tolower(items[i]->tipo) == 'w'){ // verifica se o item pode ser usado em combate e se é arma
-            if (items[i]->FA != 0){ // verifica se o item tem bonus de forca de ataque
-                fa_personagem += items[i]->FA;
-            }
-        }
-    }
-        
-    cout << personagem->getNome() << " FA: " << fa_personagem << endl;
-    cout << monstro->getNome() << " FA: " << fa_monstro << endl;
-
-    if (fa_personagem > fa_monstro) {
-        cout << personagem->getNome() << " venceu turno" << endl;
-        int dano = personagem->ataque();
-        monstro->defesa(dano);
-        cout << "Dano causado: " << dano << endl;
-    } 
-    else if (fa_monstro > fa_personagem) {
-        cout << monstro->getNome() << " venceu turno" << endl;
-        int dano = monstro->ataque();
-        personagem->defesa(dano);
-        cout << "Dano causado: " << dano << endl;
-    } else {
-        cout << "Empate" << endl;
-    }
+  cout << endl << " Fim do Combate" << endl << endl;
 }
 
-void Combate::turno(){
-    //int t = 1;
-    cout << personagem->getNome() << " Energia: " << personagem->getEnergia() << endl;
-    cout << monstro->getNome() << " Energia: " << monstro->getEnergia() << endl;
-    do {
-        acaoCombate();
-        //t++;
-    } while(personagem->getEnergia() > 0 && monstro->getEnergia() > 0);
-
-    cout << "Fim do Combate" << endl;
-    cout << personagem->getNome() << " Energia final: " << personagem->getEnergia() << endl;
-    cout << monstro->getNome() << " Energia final: " << monstro->getEnergia() << endl;
+bool Combate::fugir(){
+  return personagem->testarSorte();
 }

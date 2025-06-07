@@ -1,0 +1,12 @@
+O Tomo emite um calor ancestral. Suas páginas mostram segredos inimagináveis:  
+- Como controlar Demônios do Abismo,  
+- A localização da Torre de Mordenkainen,  
+- Uma profecia sobre seu próprio nome.  
+
+1) Devolver a Althar.  
+2) Usar o Tomo para poder pessoal.  
+3) Vender para os Caçadores.
+
+@1;18
+@2;19
+@3;20

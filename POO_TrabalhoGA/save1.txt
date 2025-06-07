@@ -1,0 +1,15 @@
+1
+Guerreiro
+6
+22
+6
+100
+4
+I
+Espada;w;2;3;0
+I
+Escudo;r;0;-1;0
+I
+Adaga;w;2;3;0
+I
+Armadura;r;0;-1;0

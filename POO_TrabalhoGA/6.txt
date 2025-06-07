@@ -1,17 +1,32 @@
-Pego o Medalhao que o mago me deu.
+Sigo as pegadas em direção a outra parte da floresta.
+A mata se fecha ao redor da clareira, escura, como a quem
+deveria esconder algo a não ser encontrado.
 
-Ele possui um símbolo estranho, com um triangulo
-e algo hexagonal no centro. Me lembra uma ampulheta.
+Um cultista se escora contra uma árvore, sua capa negra rasgada
+revelando uma ferida pulsante de energia púrpura.
+Seus olhos, brancos como leite, fixam-se em você
+enquanto ele sussurra com voz quebrada:
 
-          |\      /
-          | \____/ 
-          |  \  /\ 
-          |   \/  \
-          |   /\  /
-          |  /__\/ 
-          | /    \ 
-          |/      \
+"Eu não... recomendaria entr-ar
+Mas se desejar... saiba...
+O portal só... obedece à... língua dos esquecidos..."
 
-Quando me dou conta, o medalhao comeca a brilhar levemente
-em um tom roxo. Então, vejo uma luz brilhando muito forte
-atras da cachoeira. Um brilho também roxo...
+Ele ergue uma mão trêmula, em sinal que eu me aproxime,
+e sussurra:  "Valar Morghulis".
+
+"Tenha... mais cuidado que eu..."
+
+...
+
+Eu volto em direção ao altar e repito as palavras
+ditas pelo cultista: "Valar Morghulis!".
+
+O solo treme. Raízes se contorcem, revelando uma fenda no ar
+onde o símbolo se imprime em fogo frio. O portal para
+a Gruta Arcanica se abre com um suspiro de ventos antigos,
+ressoando as últimas palavras do cultista:
+
+"Tenha... mais cuidado que eu..."
+
+Digite 1 para continuar...
+#9

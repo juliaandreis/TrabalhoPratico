@@ -24,6 +24,7 @@ class Magia{
         int getDano();
         void setUsoDisponivel(int usoDisponivel);
         int getUsoDisponivel();
+        void imprimeMagia();
 };
 
 #endif // MAGIA_H

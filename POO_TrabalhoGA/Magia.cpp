@@ -4,7 +4,10 @@
 
 using namespace std;
 
-Magia::Magia(){}
+Magia::Magia(){
+    nome = "";
+    cura = dano = usoDisponivel = 0;
+}
 
 Magia::~Magia(){}
 
@@ -30,3 +33,7 @@ int Magia::getDano(){return dano;}
 void Magia::setUsoDisponivel(int usoDisponivel){this->usoDisponivel = usoDisponivel;}
 
 int Magia::getUsoDisponivel(){return usoDisponivel;}
+
+void Magia::imprimeMagia(){
+    cout << nome << "; " << cura << "; " << dano << "; " << usoDisponivel << endl;
+}

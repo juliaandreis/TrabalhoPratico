@@ -1,7 +1,17 @@
-A bola de fogo vai pra cima do portal, me abaixo
-aguardando uma GRANDE explosão flamejante e
--
+No interior da cascata, agora aberta como um véu,
+um grande portal de pedra rúnica se revela.
+Nele, três símbolos brilham:
 
-nada. Nenhum barulho. Olho novamente. Tudo intacto.
+1) Um olho,
+2) Uma espiral,  
+3) Uma mão segurando um livro.
 
-Claro que ia ser a prova de magias...
+1: Tocar a mão e livro.
+2: Tocar a espiral.
+3: Tocar o olho.
+4: Forçar a entrada com magia.
+
+@1;10
+@2;10
+@3;11
+@4;12

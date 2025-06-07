@@ -1,12 +1,16 @@
-A biblioteca é um vácuo estelar, com livros flutuando como asteroides. No centro, o Tomo dos Opoentes paira sobre um pedestal, pulsando com energia cósmica. De repente, um vulto se materializa — um Devorador de Mentes (HAB=14, ENERGIA=40), criatura enviada pelos Caçadores de Segredos para interceptá-lo.
+O portal se abre, revelando um corredor iluminado por luzes flutuantes.
 
-#1: Combater o Devorador (Dica: Use o Medalhao de Mordenkainen para reduzir sua ENERGIA pela metade).  
-#2: Roubar o Tomo rapidamente (Teste de SORTE ≥12; falha = ataque surpresa do Devorador).  
-#3: Ler uma página aleatória (Se tiver HABILIDADE ≥11, descobre uma magia para enfraquecer o inimigo).
+Ao fim do corredor há outra porta.
 
-RECOMPENSAS:  
-- Derrotar o Devorador: Seu cérebro cristalizado pode ser vendido por 5000 peças de ouro.  
-- Roubar com sucesso: O Tomo é seu, mas os Caçadores agora o perseguirão eternamente.  
-- Ler o um livro: Aprende a magia "Grito Planar" (a criatura perde metade da habilidade por um dia).  
+Ando relutantemente, aguardando acionar alguma armadilha ou maldição.
 
-(vou criar mais dois seccundarios que vão ser antes do 12)
+ENTÃO
+
+Eu chego em frente a porta. Sem nenhum problema no caminho. Estranho.
+Essa porta é mais detalhada, quase entalhada com desenhos de histórias
+ancestrais. Desenhos de um deus do mar adormecido, de um dragão que 
+uma vez devorara todo o universo, de um mago que descobriu todos os
+segredos do universo,...
+
+Digite 1 para continuar...
+#13
