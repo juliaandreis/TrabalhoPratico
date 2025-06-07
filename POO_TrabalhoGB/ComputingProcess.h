@@ -1,20 +1,29 @@
-#include "Processo.h"
+#include "Process.h"
 
-class ComputingProcess : public Processo{
+class ComputingProcess : public Process{
+  private:
+    int operando1;
+    int operando2;
+    char operacao;
+
   public:
     ComputingProcess();
     ~ComputingProcess();
-    ComputingProcess(Prioridade pid);
-    void executar(int operando1, int operando2, char operacao);
+    ComputingProcess(string processo);
+    void executar();
 };
 
 ComputingProcess::ComputingProcess(){}
 
 ComputingProcess::~ComputingProcess(){}
   
-ComputingProcess::ComputingProcess(Prioridade pid):Processo(pid){}
+ComputingProcess::ComputingProcess(string processo){
+  operando1 = stoi(processo.substr(0,1));
+  operando2 = processo.substr(1,2);
+  operacao = stoi(processo.substr(0,1));
+}
 
-void ComputingProcess::executar(int operando1, int operando2, char operacao){
+void ComputingProcess::executar(){
   int resultado;
   switch (operacao)
     {

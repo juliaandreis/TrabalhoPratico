@@ -1,6 +1,6 @@
-#include "Processo.h"
+#include "Process.h"
 
-class ReadingProcess : public Processo{
+class ReadingProcess : public Process{
 
 
 };

@@ -1,17 +1,16 @@
 #pragma once
 #include "Nodo.h"
-#include <queue>
 
 template<class T>
-class Pilha {
+class Pool {
 private:
     Nodo<T> *inicio;
     Nodo<T> *fim;
     int tamanho;
 
 public:
-    Pilha();
-    ~Pilha();
+    Pool();
+    ~Pool();
 
     void push_back(T elemento);
     void push_front(T elemento);
@@ -28,17 +27,17 @@ public:
 };
 
 template<class T>
-Pilha<T>::Pilha(){
+Pool<T>::Pool(){
     inicio = nullptr;
     fim = nullptr;
     tamanho = 0;
 }
 
 template<class T>
-Pilha<T>::~Pilha(){}
+Pool<T>::~Pool(){}
 
 template<class T>
-void Pilha<T>::push_back(T elemento){
+void Pool<T>::push_back(T elemento){
     Nodo<T> *novo = new Nodo<T>(elemento);
     if (inicio == nullptr){
         inicio = novo;
@@ -53,7 +52,7 @@ tamanho++;
 }
 
 template<class T>
-void Pilha<T>::push_front(T elemento){
+void Pool<T>::push_front(T elemento){
     Nodo<T> *novo = new Nodo<T>(elemento);
     if (inicio == nullptr){
         inicio = novo;
@@ -68,7 +67,7 @@ tamanho++;
 }
 
 template<class T>
-T Pilha<T>::pop_back(){
+T Pool<T>::pop_back(){
     if (fim == nullptr) {
         return -1;
     }
@@ -87,7 +86,7 @@ T Pilha<T>::pop_back(){
 }
 
 template<class T>
-T Pilha<T>::pop_front(){
+T Pool<T>::pop_front(){
     if (inicio == nullptr) {
         return -1;
     }
@@ -106,23 +105,23 @@ T Pilha<T>::pop_front(){
 }
 
 template<class T>
-T Pilha<T>::front(){
+T Pool<T>::front(){
     return inicio->getElemento();
 }
 
 template<class T>
-bool Pilha<T>::find(T letra){
+bool Pool<T>::find(T letra){
     while (fim!=nullptr){
         if (fim->getElemento() == letra){
             return true;
         }
-        pop();
+        pop_front();
     }
 return false;
 }
 
 template<class T>
-void Pilha<T>::chegou(T elemento, Prioridade prioridade){
+void Pool<T>::chegou(T elemento, Prioridade prioridade){
     Nodo<T> *novo = new Nodo<T>(elemento, prioridade);
     if (inicio == nullptr) {
         inicio = novo;

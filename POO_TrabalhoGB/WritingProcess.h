@@ -1,5 +1,5 @@
-#include "Processo.h"
+#include "Process.h"
 
-class WritingProcess : public Processo {
+class WritingProcess : public Process {
 
 };

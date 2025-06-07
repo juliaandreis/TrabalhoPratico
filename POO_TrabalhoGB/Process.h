@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
+
 //nos exercicios usei enum pq fica mais visual, mas podemos mudar
 enum Prioridade {
     BAIXA = 0,
@@ -8,14 +10,14 @@ enum Prioridade {
     ALTA = 2
 };
 
-class Processo{
+class Process{
   private:
     Prioridade pid;
 
   public:
-    Processo();
-    ~Processo();
-    Processo(Prioridade pid);
+    Process();
+    ~Process();
+    Process(Prioridade pid);
 
     void setPid(Prioridade pid);
     Prioridade getPid();
@@ -23,12 +25,12 @@ class Processo{
     virtual void executar();
 };
 
-Processo::Processo(){}
+Process::Process(){}
 
-Processo::~Processo(){}
+Process::~Process(){}
 
-Processo::Processo(Prioridade pid){this->pid = pid;}
+Process::Process(Prioridade pid){this->pid = pid;}
 
-void Processo::setPid(Prioridade pid){this->pid = pid;}
+void Process::setPid(Prioridade pid){this->pid = pid;}
 
-Prioridade Processo::getPid(){return pid;}
+Prioridade Process::getPid(){return pid;}
