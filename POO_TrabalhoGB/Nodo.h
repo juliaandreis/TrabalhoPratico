@@ -9,8 +9,8 @@ template<class T>
 class Nodo {
 private:
   T elemento;
-  Nodo *ant;
-  Nodo *prox;
+  Nodo *anterior;
+  Nodo *proximo;
 
 public:
   Nodo();
@@ -19,13 +19,13 @@ public:
 
   void setElemento(T elemento);
   void setPrioridade(Prioridade prioridade);
-  void setProx(Nodo *prox);
-  void setAnt(Nodo *ant);
+  void setProximo(Nodo *proximo);
+  void setAnterior(Nodo *anterior);
 
   T getElemento();
   Prioridade getPrioridade();
-  Nodo *getProx();
-  Nodo *getAnt();
+  Nodo *getProximo();
+  Nodo *getAnterior();
 
   void imprime();
 };
@@ -51,10 +51,10 @@ template<class T>
 void Nodo<T>::setPrioridade(Prioridade prioridade){elemento->setPrioridade(prioridade);}
 
 template<class T>
-void Nodo<T>::setProx(Nodo *prox){this->prox = prox;}
+void Nodo<T>::setProximo(Nodo *proximo){this->proximo = proximo;}
 
 template<class T>
-void Nodo<T>::setAnt(Nodo *ant){this->ant = ant;}
+void Nodo<T>::setAnterior(Nodo *anterior){this->anterior = anterior;}
 
 template<class T>
 T Nodo<T>::getElemento(){return elemento;}
@@ -63,10 +63,10 @@ template<class T>
 Prioridade Nodo<T>::getPrioridade(){return elemento->getPrioridade();}
 
 template<class T>
-Nodo<T>* Nodo<T>::getProx(){return prox;}
+Nodo<T>* Nodo<T>::getProximo(){return proximo;}
 
 template<class T>
-Nodo<T>* Nodo<T>::getAnt(){return ant;}
+Nodo<T>* Nodo<T>::getAnterior(){return anterior;}
 
 template<class T>
 void Nodo<T>::imprime(){

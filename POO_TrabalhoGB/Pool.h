@@ -44,8 +44,8 @@ void Pool<T>::push_back(T elemento){
         fim = novo;
     }
     else{
-        novo->setAnt(fim);
-        fim->setProx(novo);
+        novo->setAnterior(fim);
+        fim->setProximo(novo);
         fim = novo;
     }
 tamanho++;
@@ -59,8 +59,8 @@ void Pool<T>::push_front(T elemento){
         fim = novo;
     }
     else{
-        novo->setProx(inicio);
-        inicio->setAnt(novo);
+        novo->setProximo(inicio);
+        inicio->setAnterior(novo);
         inicio = novo;
     }
 tamanho++;
@@ -77,8 +77,8 @@ T Pool<T>::pop_back(){
         inicio = nullptr;
         fim = nullptr;
     } else {
-        fim = fim->getAnt();
-        fim->setProx(nullptr);
+        fim = fim->getAnterior();
+        fim->setProximo(nullptr);
     }
     delete temp;
     tamanho--;
@@ -96,8 +96,8 @@ T Pool<T>::pop_front(){
         inicio = nullptr;
         inicio = nullptr;
     } else {
-        inicio = inicio->getAnt();
-        inicio->setProx(nullptr);
+        inicio = inicio->getAnterior();
+        inicio->setProximo(nullptr);
     }
     delete temp;
     tamanho--;
@@ -129,21 +129,21 @@ void Pool<T>::chegou(T elemento, Prioridade prioridade){
     } else {
         Nodo<T> *seguinte = fim;
         while (seguinte != nullptr && seguinte->getPrioridade() >= prioridade) {
-            seguinte = seguinte->getProx();
+            seguinte = seguinte->getProximo();
         }
         if (seguinte == nullptr) {
-            inicio->setProx(novo);
-            novo->setAnt(inicio);
+            inicio->setProximo(novo);
+            novo->setAnterior(inicio);
             inicio = novo;
         } else if (seguinte == fim) {
-            novo->setProx(fim);
-            fim->setAnt(fim);
+            novo->setProximo(fim);
+            fim->setAnterior(fim);
             fim = novo;
         } else {
-            novo->setProx(seguinte);
-            novo->setAnt(seguinte->getAnt());
-            seguinte->getAnt()->setProx(novo);
-            seguinte->setAnt(novo);
+            novo->setProximo(seguinte);
+            novo->setAnterior(seguinte->getAnterior());
+            seguinte->getAnterior()->setProximo(novo);
+            seguinte->setAnterior(novo);
         }
     }
 }
