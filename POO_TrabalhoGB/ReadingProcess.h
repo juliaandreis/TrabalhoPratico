@@ -6,16 +6,15 @@
 
 class ReadingProcess : public Process{
 private:
-    Pool<Process> *pool;
+  Pool<Process> *pool;
 
 public:
-    ReadingProcess();
-    ReadingProcess(Pool<Process> *pool);
-    ~ReadingProcess();
-    void setProcesso(int pid);
-    void executar();
-    void imprime();
-
+  ReadingProcess();
+  ReadingProcess(Pool<Process> *pool);
+  ~ReadingProcess();
+  void setProcesso(int pid);
+  void execute();
+  void imprime();
 };
 
 ReadingProcess::ReadingProcess(){}
@@ -31,7 +30,7 @@ void ReadingProcess::setProcesso(int pid){
   setPid(pid);
 }
 
-void ReadingProcess::executar() {
+void ReadingProcess::execute() {
   ifstream leitor("computation.txt");
   if (!leitor.is_open()) {
     cerr << "Erro ao abrir o arquivo para leitura!\n";

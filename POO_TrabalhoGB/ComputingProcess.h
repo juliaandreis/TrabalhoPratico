@@ -17,7 +17,7 @@ class ComputingProcess : public Process{
     ~ComputingProcess();
     void setProcesso(int pid, string expressao);
     string getExpressao();
-    void executar();
+    void execute();
     void imprime();
 };
 
@@ -45,7 +45,7 @@ void ComputingProcess::setProcesso(int pid, string expressao){
 
 string ComputingProcess::getExpressao(){return expressao;}
 
-void ComputingProcess::executar(){
+void ComputingProcess::execute(){
   float resultado;
   switch (operacao)
     {
@@ -63,6 +63,7 @@ void ComputingProcess::executar(){
         break;
     }
 
+  cout << expressao << " = ";
   cout.precision(2);
   cout << setiosflags(ios::fixed) << resultado << endl;
 }

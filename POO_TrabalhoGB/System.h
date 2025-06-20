@@ -91,11 +91,12 @@ void System::newProcess() {
         cout << "Tipo de processo invalido" << endl;
         break;
     }
+    cout << "Processo adicionado a fila" << endl;
 }
 
 void System::executeNext() {
     // pool->front()->imprime();
-    pool->front()->executar();
+    pool->front()->execute();
     pool->pop();
 }
 
@@ -104,8 +105,10 @@ void System::executeSpecific(){
     cout << "Digite o PID do processo a ser executado: " << endl;
     cout << "Processo: ";
     cin >> pid;
-    if(pool->getSearch(pid) != NULL)
-        pool->getSearch(pid)->getElemento()->executar();
+    if(pool->getSearch(pid) != NULL){
+        pool->getSearch(pid)->getElemento()->execute();
+        pool->pop_midle(pid); 
+    }
     else
         cout << "Processo nao encontrado" << endl;
 }
@@ -125,26 +128,26 @@ bool System::saveProcesses(){
         while (pool->getTamanho() > 0) {
             switch (pool->front()-> getType()){
             case COMPUTING:
-                cout << "teste computing" << endl;
+                //cout << "teste computing" << endl;
                 computingProcess = (ComputingProcess *) pool->front();
                 writing << computingProcess->getType() << ";"
                         << computingProcess->getPid() << ";"
                         << computingProcess->getExpressao() << endl;
                 break;
             case WRITING:
-                cout << "teste writing" << endl;
+                //cout << "teste writing" << endl;
                 writingProcess = (WritingProcess *) pool->front();
                 writing << writingProcess->getType() << ";"
                         << writingProcess->getPid() << ";"
                         << writingProcess->getExpressao() << endl;
                 break;
             case READING:
-                cout << "teste reading" << endl;
+                //cout << "teste reading" << endl;
                 writing << pool->front()->getType() << ";"
                         << pool->front()->getPid() << endl;
                 break;
             case PRINTING:
-                cout << "teste printing" << endl;
+                //cout << "teste printing" << endl;
                 writing << pool->front()->getType() << ";"
                         << pool->front()->getPid() << endl;
                 break;
@@ -153,7 +156,7 @@ bool System::saveProcesses(){
         }
     
         writing.close();
-        cout << "Expressao escrita com sucesso!" << endl;
+        cout << "Lista salva com sucesso!" << endl;
         return true;
     }
 }
@@ -212,6 +215,7 @@ void System::loadProcesses(){
     ofstream arquivoEscrita("poolProcess.txt", ios::trunc);
     carregamento.close();
   }
+  cout << "Processos carregados com sucesso!" << endl;
 }
 
 #endif // SYSTEM_H //

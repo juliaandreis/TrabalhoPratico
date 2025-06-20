@@ -13,7 +13,7 @@ public:
     ~PrintingProcess();
     PrintingProcess(Pool<Process> *pool);
     void setProcesso(int pid);
-    void executar();
+    void execute();
     void imprime();
 };
 
@@ -30,7 +30,7 @@ void PrintingProcess::setProcesso(int pid){
   this->setPid(pid);
 }
 
-void PrintingProcess::executar(){
+void PrintingProcess::execute(){
   if (pool->getTamanho() == 0){
     cout << "Lista vazia" << endl;
   } else{

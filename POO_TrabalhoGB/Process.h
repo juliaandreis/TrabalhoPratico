@@ -10,29 +10,29 @@ using namespace std;
 // TYPES //
 
 typedef enum{
-  COMPUTING,
-  WRITING,
-  READING,
-  PRINTING
+    COMPUTING,
+    WRITING,
+    READING,
+    PRINTING
 } ProcessType;
 
 class Process {
 private:
-  int pid;
-  ProcessType type;
+    int pid;
+    ProcessType type;
 
 public:
-  Process();
-  virtual ~Process();
-  Process(int pid);
+    Process();
+    virtual ~Process();
+    Process(int pid);
 
-  void setPid(int pid);
-  int getPid();
-  ProcessType getType();
-  void setType(ProcessType type);
+    void setPid(int pid);
+    int getPid();
+    ProcessType getType();
+    void setType(ProcessType type);
 
-  virtual void executar();
-  virtual void imprime();
+    virtual void execute();
+    virtual void imprime();
 };
 
 Process::Process() { pid = 0;}
@@ -49,7 +49,7 @@ ProcessType Process::getType(){return type;}
 
 void Process::setType(ProcessType type){this->type = type;}
 
-void Process::executar(){}
+void Process::execute(){}
 
 void Process::imprime(){}
 

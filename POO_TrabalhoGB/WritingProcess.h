@@ -24,7 +24,7 @@ public:
   WritingProcess(int pid, string expressao);
   void setProcesso(int pid, string expressao);
   string getExpressao();
-  void executar();
+  void execute();
   void imprime();
 };
 
@@ -48,7 +48,7 @@ string WritingProcess::getExpressao() {
   return expressao;
 }
 
-void WritingProcess::executar() {
+void WritingProcess::execute() {
   string line = "";
   
   ofstream writing(arquivo, ios::app);

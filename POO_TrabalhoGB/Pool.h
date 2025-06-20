@@ -17,6 +17,7 @@ public:
 
     void push(T *elemento);
     T* pop();
+    T* pop_midle(int pid);
 
     T* front();
     bool find(int pid);
@@ -69,6 +70,29 @@ T *Pool<T>::pop() {
     delete temp;
     tamanho--;
     return elemento;
+}
+
+template<class T>
+T* Pool<T>::pop_midle(int pid){
+    if (!find(pid)) {
+        return nullptr;
+    }
+
+    Nodo<T> *atual = inicio;
+
+    while (atual->getPid() != pid) {
+        atual = atual->getProximo();
+    }
+
+    Nodo<T> *anterior = atual->getAnterior();
+    Nodo<T> *proximo = atual->getProximo();
+
+    anterior->setProximo(proximo);
+    proximo->setAnterior(anterior);
+
+    tamanho--;
+
+    return atual->getElemento();
 }
 
 template <class T> 
