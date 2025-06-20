@@ -1,36 +1,63 @@
+/**
+ * @file Process.h
+ * @brief Classe mãe de processo
+ * @author Julia, Tobias
+ * @date 2025-06-19
+ */
+
+#ifndef PROCESS_H
+#define PROCESS_H
+
 #include <iostream>
 #include <string>
+#include <fstream>
 
-using namespace std;
+using namespace std; 
 
-//nos exercicios usei enum pq fica mais visual, mas podemos mudar
-enum Prioridade {
-    BAIXA = 0,
-    MEDIA = 1,
-    ALTA = 2
+// TYPES //
+
+typedef enum{
+  COMPUTING,
+  WRITING,
+  READING,
+  PRINTING
+} ProcessType;
+
+class Process {
+private:
+  int pid;
+  ProcessType type;
+
+public:
+  Process();
+  virtual ~Process();
+  Process(int pid);
+
+  void setPid(int pid);
+  int getPid();
+  ProcessType getType();
+  void setType(ProcessType type);
+
+  virtual void executar();
+  virtual void imprime();
 };
 
-class Process{
-  private:
-    Prioridade pid;
+Process::Process() { pid = 0;}
 
-  public:
-    Process();
-    ~Process();
-    Process(Prioridade pid);
+Process::~Process() {}
 
-    void setPid(Prioridade pid);
-    Prioridade getPid();
+Process::Process(int pid) { this->pid = pid; }
 
-    virtual void executar();
-};
+void Process::setPid(int pid) { this->pid = pid; }
 
-Process::Process(){}
+int Process::getPid() { return pid; }
 
-Process::~Process(){}
+ProcessType Process::getType(){return type;}
 
-Process::Process(Prioridade pid){this->pid = pid;}
+void Process::setType(ProcessType type){this->type = type;}
 
-void Process::setPid(Prioridade pid){this->pid = pid;}
+void Process::executar(){}
 
-Prioridade Process::getPid(){return pid;}
+void Process::imprime(){}
+
+#endif // PROCESS_H //

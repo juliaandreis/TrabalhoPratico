@@ -1,29 +1,31 @@
-#pragma once
+#ifndef NODO_H
+#define NODO_H
+
 #include <iostream>
 #include <string>
 #include "Process.h"
+#include "ComputingProcess.h"
 
 using namespace std;
 
 template<class T>
 class Nodo {
 private:
-  T elemento;
+  T *elemento;
   Nodo *anterior;
   Nodo *proximo;
 
 public:
   Nodo();
   ~Nodo();
-  Nodo(T elemento, Prioridade prioridade);
+  Nodo(T *elemento);
 
-  void setElemento(T elemento);
-  void setPrioridade(Prioridade prioridade);
+  void setElemento(T *elemento);
   void setProximo(Nodo *proximo);
   void setAnterior(Nodo *anterior);
 
-  T getElemento();
-  Prioridade getPrioridade();
+  T* getElemento();
+  int getPid();
   Nodo *getProximo();
   Nodo *getAnterior();
 
@@ -37,18 +39,14 @@ template<class T>
 Nodo<T>::~Nodo(){}
 
 template<class T>
-Nodo<T>::Nodo(T elemento, Prioridade prioridade) {
+Nodo<T>::Nodo(T* elemento) {
   this->elemento = elemento;
-  this->prioridade = prioridade;
-  this->prox = nullptr;
-  this->ant = nullptr;
+  this->proximo = nullptr;
+  this->anterior = nullptr;
 }
 
 template<class T>
-void Nodo<T>::setElemento(T elemento){this->elemento = elemento;}
-
-template<class T>
-void Nodo<T>::setPrioridade(Prioridade prioridade){elemento->setPrioridade(prioridade);}
+void Nodo<T>::setElemento(T* elemento){this->elemento = elemento;}
 
 template<class T>
 void Nodo<T>::setProximo(Nodo *proximo){this->proximo = proximo;}
@@ -57,10 +55,10 @@ template<class T>
 void Nodo<T>::setAnterior(Nodo *anterior){this->anterior = anterior;}
 
 template<class T>
-T Nodo<T>::getElemento(){return elemento;}
+T* Nodo<T>::getElemento(){return elemento;}
 
 template<class T>
-Prioridade Nodo<T>::getPrioridade(){return elemento->getPrioridade();}
+int Nodo<T>::getPid(){return elemento->getPid();}
 
 template<class T>
 Nodo<T>* Nodo<T>::getProximo(){return proximo;}
@@ -70,5 +68,7 @@ Nodo<T>* Nodo<T>::getAnterior(){return anterior;}
 
 template<class T>
 void Nodo<T>::imprime(){
-  cout << elemento << endl;
+  elemento->imprime();
 }
+
+#endif // NODO_H
