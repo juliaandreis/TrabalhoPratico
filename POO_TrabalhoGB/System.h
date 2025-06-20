@@ -153,12 +153,12 @@ bool System::saveProcesses(){
             case READING:
                 //cout << "teste reading" << endl;
                 writing << pool->front()->getType() << ";"
-                        << pool->front()->getPid() << endl;
+                        << pool->front()->getPid()  << ";" << endl; // Adicionamos o segundo ";"
                 break;
             case PRINTING:
                 //cout << "teste printing" << endl;
                 writing << pool->front()->getType() << ";"
-                        << pool->front()->getPid() << endl;
+                        << pool->front()->getPid()  << ";" << endl; // Adicionamos o segundo ";"
                 break;
             }
             pool->pop();
