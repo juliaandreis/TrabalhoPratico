@@ -27,6 +27,7 @@ public:
     int getTamanho();
     int getPosicao();
     void imprime();
+    bool ehVazia();
 };
 
 template <class T> Pool<T>::Pool() {
@@ -84,11 +85,24 @@ T* Pool<T>::pop_midle(int pid){
         atual = atual->getProximo();
     }
 
-    Nodo<T> *anterior = atual->getAnterior();
-    Nodo<T> *proximo = atual->getProximo();
-
-    anterior->setProximo(proximo);
-    proximo->setAnterior(anterior);
+    if (atual == inicio) {
+        inicio = atual->getProximo();
+        if (inicio) {
+            inicio->setAnterior(nullptr);
+        }
+    } else if (atual == fim) {
+        fim = atual->getAnterior();
+        if (fim) {
+            fim->setProximo(nullptr);
+        }
+    }
+    else {
+        Nodo<T> *anterior = atual->getAnterior();
+        Nodo<T> *proximo = atual->getProximo();
+    
+        anterior->setProximo(proximo);
+        proximo->setAnterior(anterior);
+    }
 
     tamanho--;
 
@@ -133,6 +147,15 @@ template <class T> void Pool<T>::imprime(){
     for (int i = 0; i < tamanho; i++){
         atual->imprime();
         atual = atual->getProximo();
+    }
+}
+
+template <class T> bool Pool<T>::ehVazia() {
+    if (inicio == nullptr){
+        return true;
+    }
+    else {
+        return false;
     }
 }
 

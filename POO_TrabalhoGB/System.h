@@ -47,6 +47,7 @@ void System::newProcess() {
 
     int pid = 0;
     string equacao = "";
+    bool sucesso = true;
 
     // Inicialização de variáveis temporárias
     ComputingProcess *computing = new ComputingProcess();
@@ -89,15 +90,23 @@ void System::newProcess() {
         
     default:
         cout << "Tipo de processo invalido" << endl;
+        sucesso = false;
         break;
     }
-    cout << "Processo adicionado a fila" << endl;
+    if (sucesso){
+        cout << "Processo adicionado a fila" << endl;
+    }
 }
 
 void System::executeNext() {
     // pool->front()->imprime();
-    pool->front()->execute();
-    pool->pop();
+    if (pool->ehVazia()){
+        cout << "Nao ha processos na fila" << endl;
+    }
+    else{
+       pool->front()->execute();
+        pool->pop(); 
+    }
 }
 
 void System::executeSpecific(){

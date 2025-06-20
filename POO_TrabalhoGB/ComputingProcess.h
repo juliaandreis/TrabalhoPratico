@@ -47,25 +47,32 @@ string ComputingProcess::getExpressao(){return expressao;}
 
 void ComputingProcess::execute(){
   float resultado;
-  switch (operacao)
-    {
-      case '+':
-        resultado = (float)operando1 + operando2;
-        break;
-      case '-':
-        resultado = (float)operando1 - operando2;
-        break;
-      case '*':
-        resultado = (float)operando1 * operando2;
-        break;
-      case '/':
+  bool sucesso = true;
+  switch (operacao) {
+    case '+':
+      resultado = operando1 + operando2;
+      break;
+    case '-':
+      resultado = operando1 - operando2;
+      break;
+    case '*':
+      resultado = operando1 * operando2;
+      break;
+    case '/':
+      if (operando2 == 0) {
+        cout << "Erro: Divisao por zero" << endl;
+        sucesso = false;
+      } else {
         resultado = (float)operando1 / operando2;
-        break;
-    }
+      }
+      break;
+  }
 
-  cout << expressao << " = ";
-  cout.precision(2);
-  cout << setiosflags(ios::fixed) << resultado << endl;
+  if (sucesso) {
+    cout << expressao << " = ";
+    cout.precision(2);
+    cout << setiosflags(ios::fixed) << resultado << endl;
+  }
 }
 
 void ComputingProcess::imprime(){
