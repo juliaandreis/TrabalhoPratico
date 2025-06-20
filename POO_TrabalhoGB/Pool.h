@@ -6,35 +6,36 @@
 template <class T> 
 class Pool {
 private:
-  Nodo<T> *inicio;
-  Nodo<T> *fim;
-  int tamanho;
+    Nodo<T> *inicio;
+    Nodo<T> *fim;
+    int tamanho;
+    int posicao;
 
 public:
-  Pool();
-  ~Pool();
+    Pool();
+    ~Pool();
 
-  void push(T *elemento);
-  T* pop();
+    void push(T *elemento);
+    T* pop();
 
-  T* front();
-  bool find(int pid);
-  Nodo<T>* getSearch(int pid);
-  void saiu();
+    T* front();
+    bool find(int pid);
+    Nodo<T>* getSearch(int pid);
+    void saiu();
 
-  int getTamanho();
-  void imprime();
+    int getTamanho();
+    int getPosicao();
+    void imprime();
 };
 
 template <class T> Pool<T>::Pool() {
-  inicio = nullptr;
-  fim = nullptr;
-  tamanho = 0;
+    inicio = nullptr;
+    fim = nullptr;
+    tamanho = posicao = 0;
 }
 
 template <class T> Pool<T>::~Pool() {}
 
-// Funcao da Ju
 template<class T>
 void Pool<T>::push(T *elemento){
     Nodo<T> *novo = new Nodo<T>(elemento);
@@ -48,41 +49,26 @@ void Pool<T>::push(T *elemento){
         fim = novo;
     }
     tamanho++;
+    posicao++;
 }
-
-// Funcao da Tobias
-/*template <class T>
-void Pool<T>::push(T value) {
-    Nodo<T>* newNode = new Nodo<T>();
-    newNode->setElemento(value);
-    newNode->setAnterior(inicio);
-    if (inicio != NULL) {
-        inicio->setProximo(newNode);
-    }
-    newNode->setProximo(NULL);
-    inicio = newNode;
-    tamanho++;
-}*/
-
-
 
 template <class T> 
 T *Pool<T>::pop() {
-  if (inicio == nullptr) {
-    return nullptr;
-  }
-  T* elemento = inicio->getElemento();
-  Nodo<T> *temp = inicio;
-  if (inicio == fim) {
-    inicio = nullptr;
-    fim = nullptr; 
-  } else {
-    inicio = inicio->getProximo();
-    inicio->setAnterior(nullptr);
-  }
-  delete temp;
-  tamanho--;
-  return elemento;
+    if (inicio == nullptr) {
+        return nullptr;
+    }
+    T* elemento = inicio->getElemento();
+    Nodo<T> *temp = inicio;
+    if (inicio == fim) {
+        inicio = nullptr;
+        fim = nullptr; 
+    } else {
+        inicio = inicio->getProximo();
+        inicio->setAnterior(nullptr);
+    }
+    delete temp;
+    tamanho--;
+    return elemento;
 }
 
 template <class T> 
@@ -90,29 +76,33 @@ T *Pool<T>::front() { return inicio->getElemento(); }
 
 template <class T>
 bool Pool<T>::find(int pid) {
-  Nodo<T> *atual = inicio;
-  while (atual != nullptr) {
-    if (atual->getPid() == pid) {
-      return true;
+    Nodo<T> *atual = inicio;
+    while (atual != nullptr) {
+        if (atual->getPid() == pid) {
+            return true;
+        }
+        atual = atual->getProximo();
     }
-    atual = atual->getProximo();
-  }
-  return false;
+    return false;
 }
 
 template <class T>
 Nodo<T>* Pool<T>::getSearch(int pid) {
-  Nodo<T> *atual = inicio;
-  while (atual != nullptr) {
-    if (atual->getPid() == pid) {
-      return atual;
+    Nodo<T> *atual = inicio;
+    while (atual != nullptr) {
+        if (atual->getPid() == pid) {
+            return atual;
+        }
+        atual = atual->getProximo();
     }
-    atual = atual->getProximo();
-  }
-  return NULL;
+    return NULL;
 }
 
-template <class T> int Pool<T>::getTamanho() { return tamanho; }
+template <class T> 
+int Pool<T>::getTamanho() { return tamanho; }
+
+template <class T> 
+int Pool<T>::getPosicao() { return posicao; }
 
 template <class T> void Pool<T>::imprime(){
     Nodo<T> *atual = inicio;

@@ -1,7 +1,3 @@
-/**
- *
- */
-
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
@@ -39,130 +35,127 @@ System::System(Pool<Process> *pool) { this->pool = pool; }
 System::~System() {}
 
 void System::newProcess() {
-  cout << endl << "Digite o tipo de processo: " << endl;
-  cout << "1 - Computing Process" << endl;
-  cout << "2 - Writing Process" << endl;
-  cout << "3 - Reading Process" << endl;
-  cout << "4 - Printing Process" << endl;
-  cout << " : ";
+    cout << endl << "Digite o tipo de processo: " << endl;
+    cout << "1 - Computing Process" << endl;
+    cout << "2 - Writing Process" << endl;
+    cout << "3 - Reading Process" << endl;
+    cout << "4 - Printing Process" << endl;
+    cout << " : ";
 
-  int tipo = 0;
-  cin >> tipo;
+    int tipo = 0;
+    cin >> tipo;
 
-  int pid = 0;
-  string equacao = "";
+    int pid = 0;
+    string equacao = "";
 
-  // Inicialização de variáveis temporárias
-  ComputingProcess *computing = new ComputingProcess();
-  WritingProcess *writing = new WritingProcess();
-  ReadingProcess *reading = new ReadingProcess(pool);
-  PrintingProcess *printing = new PrintingProcess(pool);
+    // Inicialização de variáveis temporárias
+    ComputingProcess *computing = new ComputingProcess();
+    WritingProcess *writing = new WritingProcess();
+    ReadingProcess *reading = new ReadingProcess(pool);
+    PrintingProcess *printing = new PrintingProcess(pool);
 
-  switch (tipo) {
-  case 1:
-    cout << endl << "Digite a equacao: " << endl;
-    cin >> equacao;
-    pid = pool->getTamanho() + 1;
-    computing->setProcesso(pid, equacao);
-    pool->push(computing);
-    //pool->front()->imprime();
-    break;
+    switch (tipo) {
+    case 1:
+        cout << endl << "Digite a equacao: " << endl;
+        cin >> equacao;
+        pid = pool->getPosicao() + 1;
+        computing->setProcesso(pid, equacao);
+        pool->push(computing);
+        //pool->front()->imprime();
+        break;
 
-  case 2:
-    cout << endl << "Digite a equacao: " << endl;
-    cin >> equacao;
-    pid = pool->getTamanho() + 1;
-    writing->setProcesso(pid, equacao);
-    pool->push(writing);
-    //pool->front()->imprime();
-    break;
+    case 2:
+        cout << endl << "Digite a equacao: " << endl;
+        cin >> equacao;
+        pid = pool->getPosicao() + 1;
+        writing->setProcesso(pid, equacao);
+        pool->push(writing);
+        //pool->front()->imprime();
+        break;
 
-  case 3:
-    pid = pool->getTamanho() + 1;
-    reading->setProcesso(pid);
-    pool->push(reading);
-    //pool->push(reading);
-    break;
-      
-  case 4:
-    pid = pool->getTamanho() + 1;
-    printing->setProcesso(pid);
-    pool->push(printing);
-    //pool->push(printing);
-    break;
-      
-  default:
-    cout << "Tipo de processo invalido" << endl;
-    break;
-  }
+    case 3:
+        pid = pool->getPosicao() + 1;
+        reading->setProcesso(pid);
+        pool->push(reading);
+        //pool->push(reading);
+        break;
+        
+    case 4:
+        pid = pool->getPosicao() + 1;
+        printing->setProcesso(pid);
+        pool->push(printing);
+        //pool->push(printing);
+        break;
+        
+    default:
+        cout << "Tipo de processo invalido" << endl;
+        break;
+    }
 }
 
 void System::executeNext() {
- // pool->front()->imprime();
-  pool->front()->executar();
-  pool->pop();
+    // pool->front()->imprime();
+    pool->front()->executar();
+    pool->pop();
 }
 
 void System::executeSpecific(){
-  int pid;
-  cout << "Digite o PID do processo a ser executado: " << endl;
-  cout << "Processo: ";
-  cin >> pid;
-  if(pool->getSearch(pid) != NULL)
-    pool->getSearch(pid)->getElemento()->executar();
-  else
-    cout << "Processo nao encontrado" << endl;
+    int pid;
+    cout << "Digite o PID do processo a ser executado: " << endl;
+    cout << "Processo: ";
+    cin >> pid;
+    if(pool->getSearch(pid) != NULL)
+        pool->getSearch(pid)->getElemento()->executar();
+    else
+        cout << "Processo nao encontrado" << endl;
 }
 
 bool System::saveProcesses(){
-  string line = "";
+    string line = "";
 
-  // Processos de bufferizacao
-  ComputingProcess *computingProcess;
-  WritingProcess *writingProcess;
-  //ReadingProcess *readingProcess;
- //PrintingProcess *printingProcess;
-  
-  
-  ofstream writing("poolProcess.txt", ios::app);
-  if (!writing.is_open()) {
-    cerr << "Erro ao abrir o arquivo para leitura!\n";
-    return false;
-  } else {
-  for (int i = 0; i < pool->getTamanho(); i++){
-    switch (pool->front()-> getType()){
-      case COMPUTING:
-        cout << "teste computing" << endl;
-        computingProcess = (ComputingProcess *) pool->front();
-        writing << computingProcess->getType() << ";"
-                << computingProcess->getPid() << ";"
-                << computingProcess->getExpressao() << endl;
-        break;
-      case WRITING:
-        cout << "teste writing" << endl;
-        writingProcess = (WritingProcess *) pool->front();
-        writing << writingProcess->getType() << ";"
-                << writingProcess->getPid() << ";"
-                << writingProcess->getExpressao() << endl;
-        break;
-      case READING:
-        cout << "teste reading" << endl;
-        writing << pool->front()->getType() << ";"
-                << pool->front()->getPid() << endl;
-        break;
-      case PRINTING:
-        cout << "teste printing" << endl;
-        writing << pool->front()->getType() << ";"
-                << pool->front()->getPid() << endl;
-        break;
-    }
-    pool->pop();
-  }
+    // Processos de bufferizacao
+    ComputingProcess *computingProcess;
+    WritingProcess *writingProcess;
+
+    ofstream writing("poolProcess.txt", ios::app);
+    if (!writing.is_open()) {
+        cerr << "Erro ao abrir o arquivo para leitura!\n";
+        return false;
+    } else {
+        while (pool->getTamanho() > 0) {
+            switch (pool->front()-> getType()){
+            case COMPUTING:
+                cout << "teste computing" << endl;
+                computingProcess = (ComputingProcess *) pool->front();
+                writing << computingProcess->getType() << ";"
+                        << computingProcess->getPid() << ";"
+                        << computingProcess->getExpressao() << endl;
+                break;
+            case WRITING:
+                cout << "teste writing" << endl;
+                writingProcess = (WritingProcess *) pool->front();
+                writing << writingProcess->getType() << ";"
+                        << writingProcess->getPid() << ";"
+                        << writingProcess->getExpressao() << endl;
+                break;
+            case READING:
+                cout << "teste reading" << endl;
+                writing << pool->front()->getType() << ";"
+                        << pool->front()->getPid() << endl;
+                break;
+            case PRINTING:
+                cout << "teste printing" << endl;
+                writing << pool->front()->getType() << ";"
+                        << pool->front()->getPid() << endl;
+                break;
+            }
+            pool->pop();
+        }
     
-    writing.close();
-    cout << "Expressao escrita com sucesso!" << endl;
-    return true;
-  }
+        writing.close();
+        cout << "Expressao escrita com sucesso!" << endl;
+        return true;
+    }
 }
 
 
@@ -182,14 +175,7 @@ void System::loadProcesses(){
     WritingProcess *writing;
     ReadingProcess *reading;
     PrintingProcess *printing;
-/* da pra fazer assim que nem eu fiz no computing:
-for (pos = 0; pos < expressao.length(); ++pos) {
-  if (expressao == ';'){
-    int para = pos; sla kkkk
-  };
-}
 
-*/
     while (getline(carregamento, expressao)) {
       tipo = (ProcessType)(expressao[0] - '0');
       expressao = expressao.substr(2);

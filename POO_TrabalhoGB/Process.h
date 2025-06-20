@@ -1,10 +1,3 @@
-/**
- * @file Process.h
- * @brief Classe mãe de processo
- * @author Julia, Tobias
- * @date 2025-06-19
- */
-
 #ifndef PROCESS_H
 #define PROCESS_H
 
