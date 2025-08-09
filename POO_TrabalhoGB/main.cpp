@@ -1,6 +1,3 @@
-// Arrumamos o PID do PrintingProcess após a apresentação, agora funciona com o executar o processo específico.
-// Classe system.cpp, método loadProcesses(). Comentamos nas linhas 156 e 161
-
 #include "System.h"
 #include "Process.h"
 #include "Pool.h"
