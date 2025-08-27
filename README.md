@@ -1,7 +1,7 @@
 # TrabalhoPratico
 Autores: Julia Renata Andreis e Tobias Klein Steyer.
 
-Repositório criado para a entrega dos trabalhos práticos do GA e do GB.
+Repositório criado para a entrega dos trabalhos feitos pela dupla.
 
 ## Trabalho Grau A
 
