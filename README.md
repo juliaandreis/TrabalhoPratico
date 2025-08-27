@@ -1,7 +1,15 @@
 # TrabalhoPratico
 Autores: Julia Renata Andreis e Tobias Klein Steyer.
 
-Repositório criado para a entrega dos trabalhos práticos do GA e do GB.
+Repositório criado para a entrega dos trabalhos feitos pela dupla.
+
+## POO_TrabalhoGA
+
+Simula um RPG. A história muda conforme as escolhas do jogador.
+
+## POO_TrabalhoGB
+
+Lista de processos de calcular.
 
 ## Trabalho Grau A
 
