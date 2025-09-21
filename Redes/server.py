@@ -1,60 +1,63 @@
-
 import socket
 import threading
 
-# Configurações do servidor
-HOST = '0.0.0.0'   # Permite clientes de outras máquinas
-PORT = 5000        # Porta do servidor
+HOST = '0.0.0.0'
+PORT = 50000
 
-# Lista para armazenar os clientes conectados
 connections = []
+clients = {}  # {username: socket}
 
-clients = {}
-
-def broadcast(message, sender_socket):
-    """Envia a mensagem para todos os clientes, exceto quem enviou."""
-    for client in connections:
-        if client != sender_socket:
-            try:
-                client.send(message)
-            except:
-                # Remove clientes que não respondem
-                connections.remove(client)
+def send_to_user(destination_name, message, sender_socket):
+    dest_socket = clients.get(destination_name)
+    if dest_socket and dest_socket != sender_socket:
+        try:
+            dest_socket.send(message)
+        except:
+            print(f"[ERRO] Falha ao enviar para {destination_name}")
 
 def handle_client(client_socket, addr):
-    global clients
-    """Gerencia a comunicação com um cliente específico."""
     print(f"[NOVA CONEXÃO] {addr} conectado.")
-    ip = addr[0]
-    porta = addr[1]
-    #print(f"{ip} teste {porta}")
-    #print(f"{client_socket}")
+    username = None
 
-    boolConectado = 0
+    try:
+        username = client_socket.recv(2048).decode('utf-8').strip()
+        clients[username] = client_socket
+        connections.append(client_socket)
+        print(f"[LOGIN] {username} de {addr}")
+        client_socket.send(
+            f"Bem-vindo, {username}! Use: DESTINATARIO: mensagem".encode('utf-8')
+        )
 
-    while True:
-        try:
-            message = client_socket.recv(1024)
-            if not boolConectado:
-                boolConectado = not boolConectado
-                clients = {
-                    "ip": addr[0],
-                    "porta": addr[1],
-                    "nome": message
-                }
-                print(f"{clients}")
-
-            if not message:
+        while True:
+            data = client_socket.recv(2048)
+            if not data:
                 break
-            broadcast(message, client_socket)
-        except:
-            break
-    print(f"[DESCONECTADO] {addr} saiu.")
-    connections.remove(client_socket)
-    client_socket.close()
+            msg = data.decode('utf-8').strip()
+
+            if ':' in msg:
+                destination_name, text = msg.split(':', 1)
+                destination_name = destination_name.strip()
+                text = text.strip()
+                full_message = f"{username}: {text}".encode('utf-8')
+                send_to_user(destination_name, full_message, client_socket)
+            else:
+                client_socket.send(
+                    b"[SERVIDOR] Formato incorreto. Use DESTINATARIO: mensagem"
+                )
+
+    except Exception as e:
+        print(f"[ERRO] {addr}: {e}")
+
+    finally:
+        print(f"[DESCONECTADO] {addr}")
+        if client_socket in connections:
+            connections.remove(client_socket)
+        # Só tenta remover se username foi realmente definido
+        if username and username in clients:
+            del clients[username]
+        client_socket.close()
 
 def start_server():
-    """Inicia o servidor e aceita conexões."""
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((HOST, PORT))
     server.listen()
@@ -62,9 +65,7 @@ def start_server():
 
     while True:
         client_socket, addr = server.accept()
-        connections.append(client_socket)
-        thread = threading.Thread(target=handle_client, args=(client_socket, addr))
-        thread.start()
+        threading.Thread(target=handle_client, args=(client_socket, addr), daemon=True).start()
 
 if __name__ == "__main__":
     start_server()
