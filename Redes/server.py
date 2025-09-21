@@ -1,3 +1,5 @@
+#julia andreis e tobias klein
+
 import socket
 import threading
 
