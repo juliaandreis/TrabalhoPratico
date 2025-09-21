@@ -1,47 +1,70 @@
+
 import socket
+import threading
 
+# Configurações do servidor
+HOST = '0.0.0.0'   # Permite clientes de outras máquinas
+PORT = 5000        # Porta do servidor
 
-def run_server():
-    # create a socket object
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# Lista para armazenar os clientes conectados
+connections = []
 
-    server_ip = "127.0.0.1"
-    port = 8000
+clients = {}
 
-    # bind the socket to a specific address and port
-    server.bind((server_ip, port))
-    # listen for incoming connections
-    server.listen(0)
-    print(f"Listening on {server_ip}:{port}")
+def broadcast(message, sender_socket):
+    """Envia a mensagem para todos os clientes, exceto quem enviou."""
+    for client in connections:
+        if client != sender_socket:
+            try:
+                client.send(message)
+            except:
+                # Remove clientes que não respondem
+                connections.remove(client)
 
-    # accept incoming connections
-    client_socket, client_address = server.accept()
-    print(f"Accepted connection from {client_address[0]}:{client_address[1]}")
+def handle_client(client_socket, addr):
+    global clients
+    """Gerencia a comunicação com um cliente específico."""
+    print(f"[NOVA CONEXÃO] {addr} conectado.")
+    ip = addr[0]
+    porta = addr[1]
+    #print(f"{ip} teste {porta}")
+    #print(f"{client_socket}")
 
-    # receive data from the client
+    boolConectado = 0
+
     while True:
-        request = client_socket.recv(1024)
-        request = request.decode("utf-8") # convert bytes to string
-        
-        # if we receive "close" from the client, then we break
-        # out of the loop and close the conneciton
-        if request.lower() == "close":
-            # send response to the client which acknowledges that the
-            # connection should be closed and break out of the loop
-            client_socket.send("closed".encode("utf-8"))
+        try:
+            message = client_socket.recv(1024)
+            if not boolConectado:
+                boolConectado = not boolConectado
+                clients = {
+                    "ip": addr[0],
+                    "porta": addr[1],
+                    "nome": message
+                }
+                print(f"{clients}")
+
+            if not message:
+                break
+            broadcast(message, client_socket)
+        except:
             break
-
-        print(f"Received: {request}")
-
-        response = "accepted".encode("utf-8") # convert string to bytes
-        # convert and send accept response to the client
-        client_socket.send(response)
-
-    # close connection socket with the client
+    print(f"[DESCONECTADO] {addr} saiu.")
+    connections.remove(client_socket)
     client_socket.close()
-    print("Connection to client closed")
-    # close server socket
-    server.close()
 
+def start_server():
+    """Inicia o servidor e aceita conexões."""
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.bind((HOST, PORT))
+    server.listen()
+    print(f"[SERVIDOR] Escutando em {HOST}:{PORT}")
 
-run_server()
+    while True:
+        client_socket, addr = server.accept()
+        connections.append(client_socket)
+        thread = threading.Thread(target=handle_client, args=(client_socket, addr))
+        thread.start()
+
+if __name__ == "__main__":
+    start_server()
