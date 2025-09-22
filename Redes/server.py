@@ -34,18 +34,16 @@ def handle_client(client_socket, addr):
             data = client_socket.recv(2048)
             if not data:
                 break
-            msg = data.decode('utf-8').strip()
+            message = data.decode('utf-8').strip()
 
-            if ':' in msg:
-                destination_name, text = msg.split(':', 1)
+            if ':' in message:
+                destination_name, text = message.split(':', 1)
                 destination_name = destination_name.strip()
                 text = text.strip()
                 full_message = f"{username}: {text}".encode('utf-8')
                 send_to_user(destination_name, full_message, client_socket)
             else:
-                client_socket.send(
-                    b"[SERVIDOR] Formato incorreto. Use DESTINATARIO: mensagem"
-                )
+                client_socket.send(b"[SERVIDOR] Formato incorreto. Use DESTINATARIO: mensagem")
 
     except Exception as e:
         print(f"[ERRO] {addr}: {e}")
