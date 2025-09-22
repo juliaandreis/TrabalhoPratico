@@ -13,7 +13,7 @@ def receive_messages(client_socket):
         try:
             message = client_socket.recv(2048).decode('utf-8')
             if message:
-                print("\r" + message + "\n> ", end="")
+                print("\r" + message + "\n ", end="")
             else:
                 break
         except:
