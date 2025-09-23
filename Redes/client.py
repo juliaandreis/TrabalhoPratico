@@ -5,8 +5,8 @@ import threading
 import time
 
 # Configurações do cliente
-HOST = '192.168.1.108' # IP do servidor
-PORT = 50000           # Porta do servidor
+HOST = '192.168.1.108' # IP do servidor # 192.168.100.237 (PC Tobias) # 192.168.1.108 (PC Julia)
+PORT = 50000     # Porta do servidor
 
 def receive_messages(client_socket):
     while True:
@@ -22,11 +22,24 @@ def receive_messages(client_socket):
             break
         
 def send_messages(client_socket): 
+    destination_name = None
     while True:
         try:
+            if destination_name != None:
+                print(f"Enviando para {destination_name}. Use 'nome: mensagem' para mudar destinatário.")
+            
             message = input("> ")
+
+            if ':' in message:
+                copy = message
+                destination_name, _ = copy.split(':', 1)
+                destination_name = destination_name.strip()
+            else:
+                message = f"{destination_name}: {message}"
+
             if message.lower() == "/sair":
                 break
+
             client_socket.send(message.encode('utf-8'))
         except:
             print("Erro ao enviar mensagem.")
@@ -53,7 +66,7 @@ def start_client():
     while True:
         if not thread_receive.is_alive() or not thread_send.is_alive():
             break
-        time.sleep(1) # Impede o loop de consumir 100% da CPU
+        time.sleep(1) #impede o loop de consumir 100% da CPU
     
     client.close()
     print("Você foi desconectado.")
