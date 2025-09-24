@@ -20,15 +20,21 @@ def receive_messages(client_socket):
             print("Conexão encerrada pelo servidor.")
             client_socket.close()
             break
-        
-def send_messages(client_socket): 
-    destination_name = None
+
+def send_messages(client_socket):
+    answer = False 
+    while answer is False:
+        destination_name = input("Com quem você quer conversar? > ")
+        answer = client_socket.recv(2048).decode('utf-8')
+        if answer == False:
+            print("Usuário não encontrado. Tente novamente.")
+        elif answer == True:
+            break
+    
+    print(f"Enviando para {destination_name}. Use 'nome: mensagem' para mudar destinatário.")
     while True:
         try:
-            if destination_name != None:
-                print(f"Enviando para {destination_name}. Use 'nome: mensagem' para mudar destinatário.")
-            
-            message = input("> ")
+            message = input("Voce > ")
 
             if ':' in message:
                 copy = message
@@ -54,8 +60,17 @@ def start_client():
     except:
         return print('\nNão foi possível se conectar ao servidor!\n')
 
-    username = input('Digite o seu usuário > ')
-    client.send(username.encode('utf-8'))
+    username_not_aprooved = True
+    while username_not_aprooved:
+        username = input('Digite o seu usuário > ')
+        client.send(username.encode('utf-8'))
+        answer = client.recv(2048).decode('utf-8')
+
+        if answer == "OK":
+           print("Nome de usuário aceito!")
+           break
+        elif answer == "NOT":
+            print("Nome de usuário inválido ou já em uso. Tente novamente.")
     
     thread_receive = threading.Thread(target=receive_messages, args=(client,), daemon=True)
     thread_receive.start()
