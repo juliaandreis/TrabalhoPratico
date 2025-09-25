@@ -6,107 +6,160 @@ import threading
 HOST = '0.0.0.0'
 PORT = 50000
 
-connections = []
-clients: dict[str, dict[str, object]] = {}  #{username: socket, status}
+clients = {}
+lock = threading.Lock()
 
-clients_lock = threading.Lock()
+def listar_menu():
+    # usuários que estão em um chat privado não aparecem no menu
+    with lock:
+        menu_users = [user for user, data in clients.items() if data["status"] == "menu"]
+        if not menu_users:
+            return
+        
+        message = "\n[USUÁRIOS DISPONÍVEIS]:\n " + "\n ".join(menu_users)
 
-def users_list():
-    """
-    Cria uma lista de usuários conectados e a envia para todos
-    os clientes que estão no estado 'menu'.
-    """
-    with clients_lock:
-        if not clients:
-            lista = "[SERVIDOR] Nenhum outro usuário conectado."
-        else:
-            users = list(clients.keys())
-            lista = "\n[USUÁRIOS CONECTADOS]:\n " + "\n ".join(users)
-
-        #.items() retorna a chave (user) e o valor (dicionário com socket/status)
-        for _, client_data in clients.items():
-            if client_data["status"] == "menu":
+        for _, data in clients.items():
+            if data["status"] == "menu":
                 try:
-                    client_data["socket"].send(lista.encode('utf-8'))
+                    data["socket"].send(message.encode("utf-8"))
                 except:
-                    pass #se der erro, o handle_client já remove
+                    pass
 
-def send_to_user(destination_name, message, sender_socket):
-    dest_socket = clients.get(destination_name)
-    if dest_socket and dest_socket != sender_socket:
-        try:
-            dest_socket.send(message)
-        except:
-            print(f"[ERRO] Falha ao enviar para {destination_name}")
-
-def handle_client(client_socket, addr):
-    print(f"[NOVA CONEXÃO] {addr} conectado.")
+def client_connection(sock, addr):
+    print(f"[NOVA CONEXÃO] {addr}")
     username = None
-    destination_name = None
-
     try:
+        # login
         while True:
-            username = client_socket.recv(2048).decode('utf-8').strip()
-            if not username or username in clients:
-                client_socket.send(f"NOT".encode('utf-8'))
-            else:
-                client_socket.send(f"OK".encode('utf-8'))
-                clients[username] = {
-                    "socket": client_socket,
-                    "status": "menu"
-                    }
-                print(clients.keys())
-                break
+            username_candidate = sock.recv(2048).decode("utf-8").strip()
+            if not username_candidate:
+                sock.send(b"NOT_VALID")
+                continue
+            with lock:
+                if username_candidate in clients:
+                    sock.send(b"NOT_UNIQUE")
+                else:
+                    username = username_candidate
+                    clients[username] = {"socket": sock, "status": "menu", "partner": None}
+                    sock.send(b"OK")
+                    break
 
-        connections.append(client_socket)
-        print(f"[LOGIN] {username} de {addr}")
-        client_socket.send(f"Bem-vindo, {username}! Use: DESTINATARIO: mensagem".encode('utf-8'))
+        print(f"[LOGIN] {username} de {addr} entrou.")
+        sock.send(f"Bem-vindo, {username}!\nPara convidar alguém, digite o nome do usuário.".encode("utf-8"))
+        listar_menu()
 
         while True:
-            if clients[username]["status"] == "menu":
-                users_list()
-                destination_name = data = client_socket.recv(2048).decode('utf-8').strip()
-                if destination_name in clients and destination_name != username:
-                    clients[username]["status"] = "chat"
-                    client_socket.send(b'True')
-
-            data = client_socket.recv(2048)
+            data = sock.recv(2048)
             if not data:
                 break
-            message = data.decode('utf-8').strip()
+            message = data.decode("utf-8").strip()
 
-            if ':' in message:
-                print(f"[MENSAGEM] {username} está enviando uma mensagem para {destination_name}")
-                destination_name, text = message.split(':', 1)
-                destination_name = destination_name.strip()
-                text = text.strip()
-                full_message = f"{username}: {text}".encode('utf-8')
-                send_to_user(destination_name, full_message, client_socket)
-                print(f"[ENVIADO] {username} enviou uma mensagem para {destination_name}")
-            else:
-                client_socket.send(b"[SERVIDOR] Formato incorreto. Use DESTINATARIO: mensagem")
+            with lock:
+                user_data = clients.get(username)
+                if not user_data: 
+                    break # usuário pode ter sido desconectado
+                status = user_data["status"]
 
+            # estando no menu:
+            if status == "menu":
+                if message.lower().startswith(("/aceitar", "/recusar")):
+                    resposta = message.split()
+                    if len(resposta) == 2:
+                        answer, destinatario = resposta[0].lower(), resposta[1]
+                        
+                        with lock:
+                            if user_data.get("partner") == destinatario and destinatario in clients:
+                                if answer == "/aceitar":
+                                    clients[username]["status"] = "chat"
+                                    clients[destinatario]["status"] = "chat"
+                                    clients[username]["partner"] = destinatario
+                                    clients[destinatario]["partner"] = username
+                                    clients[destinatario]["socket"].send(f"[CONECTADO] {username} aceitou seu convite! O chat começou.".encode("utf-8"))
+                                    sock.send(f"[CONECTADO] Você aceitou o convite. O chat com {destinatario} começou.".encode("utf-8"))
+                                    print(f"[CHAT INICIADO] entre {username} e {destinatario}.")
+                                else:
+                                    clients[destinatario]["socket"].send(f"[INFO] {username} recusou seu convite.".encode("utf-8"))
+                                    sock.send(f"[INFO] Você recusou o convite de {destinatario}.".encode("utf-8"))
+                                    clients[username]["partner"] = None
+                                    clients[destinatario]["partner"] = None
+                            else:
+                                sock.send("[ERRO] Convite inválido ou expirado.".encode("utf-8"))       
+                    else:
+                        sock.send("[ERRO] Comando inválido. Use /aceitar <usuario> ou /recusar <usuario>".encode("utf-8"))
+                else:
+                    destinatario = message
+                    with lock:
+                        if destinatario in clients and clients.get(destinatario, {}).get("status") == "menu":
+                            invite_msg = f"[CONVITE] {username} quer conversar com você.\nDigite /aceitar {username} ou /recusar {username}"
+                            clients[destinatario]["socket"].send(invite_msg.encode("utf-8"))
+                            clients[destinatario]["partner"] = username
+                            sock.send(f"[INFO] Convite enviado para {destinatario}. Aguarde...".encode("utf-8"))
+                        else:
+                            sock.send(f"[ERRO] Usuário '{destinatario}' não encontrado ou está ocupado.".encode("utf-8"))
+
+            # no chat privado:
+            elif status == "chat":
+                if message.lower() == "/sair":
+                    partner_left = False
+                    with lock:
+                        partner_name = user_data.get("partner")
+                        if partner_name and partner_name in clients:
+                            clients[username]["status"] = "menu"
+                            clients[username]["partner"] = None
+                            clients[partner_name]["status"] = "menu"
+                            clients[partner_name]["partner"] = None
+                            
+                            clients[partner_name]["socket"].send(f"[INFO] {username} saiu do chat. Você voltou para o menu.".encode("utf-8"))
+                            sock.send("[INFO] Você saiu do chat e voltou para o menu.".encode("utf-8"))
+                            
+                            print(f"[CHAT ENCERRADO] entre {username} e {partner_name}.")
+                            partner_left = True
+                    
+                    if partner_left:
+                        listar_menu()
+                
+                # enviar mensagem no chat
+                else:
+                    with lock:
+                        partner_name = user_data.get("partner")
+                        if partner_name and partner_name in clients:
+                            partner_socket = clients[partner_name]["socket"]
+                            partner_socket.send(f"[{username}]: {message}".encode("utf-8"))
+                        else:
+                            clients[username]["status"] = "menu"
+                            clients[username]["partner"] = None
+                            sock.send("[INFO] Seu parceiro de chat desconectou. Você voltou ao menu.".encode("utf-8"))
+
+    except (ConnectionResetError, ConnectionAbortedError):
+        print(f"[AVISO] Conexão com {addr} perdida.")
     except Exception as e:
         print(f"[ERRO] {addr}: {e}")
 
     finally:
         print(f"[DESCONECTADO] {addr}")
-        if client_socket in connections:
-            connections.remove(client_socket)
-        #só tenta remover se username foi realmente definido
-        if username and username in clients:
-            del clients[username]
-        client_socket.close()
+        partner_disconnected = False
+        with lock:
+            if username and username in clients:
+                partner = clients[username].get("partner")
+                if partner and partner in clients and clients[partner].get("status") == "chat":
+                    clients[partner]["socket"].send(f"[INFO] {username} se desconectou. Você voltou para o menu.".encode("utf-8"))
+                    clients[partner]["status"] = "menu"
+                    clients[partner]["partner"] = None
+                    partner_disconnected = True
+                
+                del clients[username]
+        
+        if partner_disconnected:
+            listar_menu()
 
 def start_server():
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((HOST, PORT))
     server.listen()
     print(f"[SERVIDOR] Escutando em {HOST}:{PORT}")
-
     while True:
         client_socket, addr = server.accept()
-        threading.Thread(target=handle_client, args=(client_socket, addr), daemon=True).start()
+        threading.Thread(target=client_connection, args=(client_socket, addr), daemon=True).start()
 
 if __name__ == "__main__":
     start_server()

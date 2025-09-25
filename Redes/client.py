@@ -2,88 +2,67 @@
 
 import socket
 import threading
-import time
 
-# Configurações do cliente
 HOST = '192.168.1.108' # IP do servidor # 192.168.100.237 (PC Tobias) # 192.168.1.108 (PC Julia)
-PORT = 50000     # Porta do servidor
+PORT = 50000     # porta do servidor
 
 def receive_messages(client_socket):
     while True:
         try:
             message = client_socket.recv(2048).decode('utf-8')
-            if message:
-                print("\r" + message + "\n ", end="")
-            else:
+            if not message:
                 break
+            # imprime a mensagem e redesenha o prompt de input na linha de baixo
+            print(f"\r{message}\n> ", end="")
         except:
-            print("Conexão encerrada pelo servidor.")
-            client_socket.close()
-            break
-
-def send_messages(client_socket):
-    answer = False 
-    while answer is False:
-        destination_name = input("Com quem você quer conversar? > ")
-        answer = client_socket.recv(2048).decode('utf-8')
-        if answer == False:
-            print("Usuário não encontrado. Tente novamente.")
-        elif answer == True:
-            break
-    
-    print(f"Enviando para {destination_name}. Use 'nome: mensagem' para mudar destinatário.")
-    while True:
-        try:
-            message = input("Voce > ")
-
-            if ':' in message:
-                copy = message
-                destination_name, _ = copy.split(':', 1)
-                destination_name = destination_name.strip()
-            else:
-                message = f"{destination_name}: {message}"
-
-            if message.lower() == "/sair":
-                break
-
-            client_socket.send(message.encode('utf-8'))
-        except:
-            print("Erro ao enviar mensagem.")
+            print("\r[ERRO] Conexão com o servidor perdida.")
             break
     client_socket.close()
 
+def send_messages(client_socket):
+    while True:
+        try:
+            message = input("> ")
+            client_socket.send(message.encode('utf-8'))
+            if message.lower() == "/sair":
+                pass
+        except:
+            break
+    client_socket.close()
 
 def start_client():
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         client.connect((HOST, PORT))
-    except:
-        return print('\nNão foi possível se conectar ao servidor!\n')
+    except Exception as e:
+        return print(f"Não foi possível se conectar ao servidor: {e}")
 
-    username_not_aprooved = True
-    while username_not_aprooved:
-        username = input('Digite o seu usuário > ')
+    # valida nome de usuário
+    while True:
+        username = input("Digite o seu nome de usuário: ")
+        if not username:
+            print("Nome de usuário não pode ser vazio.")
+            continue
+        
         client.send(username.encode('utf-8'))
-        answer = client.recv(2048).decode('utf-8')
+        response = client.recv(2048).decode('utf-8')
 
-        if answer == "OK":
-           print("Nome de usuário aceito!")
-           break
-        elif answer == "NOT":
-            print("Nome de usuário inválido ou já em uso. Tente novamente.")
-    
+        if response == "OK":
+            print("Login realizado com sucesso!\n")
+            break
+        elif response == "NOT_UNIQUE":
+            print("Este nome de usuário já está em uso. Tente outro.")
+        else:
+            print("Nome de usuário inválido.")
+
     thread_receive = threading.Thread(target=receive_messages, args=(client,), daemon=True)
     thread_receive.start()
-
-    thread_send = threading.Thread(target=send_messages, args=(client,), daemon=True)
-    thread_send.start()
-
-    while True:
-        if not thread_receive.is_alive() or not thread_send.is_alive():
-            break
-        time.sleep(1) #impede o loop de consumir 100% da CPU
     
-    client.close()
+    thread_send = threading.Thread(target=send_messages, args=(client,))
+    thread_send.start()
+    
+    thread_send.join()
+
     print("Você foi desconectado.")
 
 if __name__ == "__main__":
